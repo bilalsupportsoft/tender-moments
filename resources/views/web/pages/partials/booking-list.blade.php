@@ -1,3 +1,12 @@
+<style>
+    .pending-bookingbtn{
+        background-color: #0000ff7a;
+    color: #fff;
+    padding: 3px 11px;
+    font-size: 15px;
+    border-radius: 3px;
+    }
+</style>
 @if (isset($activeSlots) && count($activeSlots) > 0)
     @foreach ($activeSlots as $slot)
         <div class="all-booking-info">
@@ -129,8 +138,8 @@
                                     width="60"></div>
                             <div class="date-and-info">
                                 <h4>Booking Time</h4>
-                                <p>{{ \Carbon\Carbon::parse($booking->start_time)->format('h:i A') }} to
-                                    {{ \Carbon\Carbon::parse($booking->end_time)->format('h:i A') }}</p>
+                                <p>{{ \Carbon\Carbon::parse($booking->slot->start_time)->format('h:i A') }} to
+                                    {{ \Carbon\Carbon::parse($booking->slot->end_time)->format('h:i A') }}</p>
                             </div>
                         </div>
                     </div>

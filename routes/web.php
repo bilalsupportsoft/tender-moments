@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\HomeController;
-use App\Http\Controllers\web\AuthController;
-use App\Http\Controllers\web\SlotController;
-use App\Http\Controllers\web\BookingController;
+use App\Http\Controllers\Web\AuthController;
+use App\Http\Controllers\Web\SlotController;
+use App\Http\Controllers\Web\BookingController;
 
 
 /*
