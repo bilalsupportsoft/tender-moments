@@ -51,16 +51,16 @@
                             <h5 class="ft-title">Quick Link</h5>
                             <ul class="ft-link tmp-link-animation">
                                 <li>
+                                    <a href="{{ route('/') }}">Home</a>
+                                </li>
+                                <li>
                                     <a href="#">About Me</a>
                                 </li>
                                 <li>
-                                    <a href="#">Service</a>
+                                    <a href="#">What to Expect</a>
                                 </li>
                                 <li>
-                                    <a href="#">Contact Me</a>
-                                </li>
-                                <li>
-                                    <a href="#">Pricing</a>
+                                    <a href="#">Contact</a>
                                 </li>
                             </ul>
                         </div>
@@ -88,12 +88,12 @@
                             2025 | All Rights Reserved
                         </p>
 
-                        <p class="copy-right-para tmp-link-animation text-white">
+                        {{-- <p class="copy-right-para tmp-link-animation text-white">
                             <strong>ABN</strong> 52114429886
-                        </p>
+                        </p> --}}
                         <ul class="tmp-link-animation">
-                            <li><a href="#">Trams &amp; Condition</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="{{ route('term-condition') }} ">Terms &amp; Conditions</a></li>
+                            <li><a href="{{ route('privacy-policy') }}">Privacy Policy</a></li>
                             <li><a href="#">Contact Us</a></li>
                         </ul>
                     </div>
@@ -120,33 +120,33 @@
     <div class="custom-popup-box">
         <div class="custom-close" onClick="closeCustomPopup()">×</div>
         <div class="register-infotech">
-            <div class="bg-ragi-info">
+            <div class="bg-ragi-info login-info">
                 <div class="logo-title-info">
                 </div>
             </div>
             <div class="right-info-rights">
                 <div id="register-section">
-                    <h3>New Registration</h3>
-                    <p>Please enter your name and mobile number for Registration</p>
+                    <h3>Create account</h3>
+                    <p>Please enter the following details to create an account and book an appointment</p>
                     <form id="registerForm">
                         @csrf
                         <div class="info-fild-box">
                             <!--<form>-->
                             <div class="form-info-fild">
-                                <label><img src="assets/web/user.png" alt="" width="24"> Your Name</label>
+                                <label><img src="assets/web/user.png" alt="" width="24"> Full Name</label>
                                 <input type="text" class="lable-icon-info" name="name"
-                                    placeholder="Enter Your Name">
+                                    placeholder="Enter full name">
                                 <span class="error-text text-danger"></span>
                             </div>
                             <div class="form-info-fild">
                                 <label><img src="assets/web/email-id.png" alt="" width="24"> Email
                                     Address</label>
                                 <input type="email" class="lable-icon-info" name="email"
-                                    placeholder="Ener your email ID">
+                                    placeholder="Enter your email address">
                                 <span class="error-text text-danger"></span>
                             </div>
                             <div class="form-info-fild position-relative">
-                                <label><img src="assets/web/email-id.png" width="24"> Password</label>
+                                <label><img src="assets/web/password.png" width="24"> Password</label>
                                 <input type="password" id="register-password" class="lable-icon-info" name="password"
                                     placeholder="Enter your password">
                                 <span class="error-text text-danger"></span>
@@ -155,7 +155,7 @@
                                     style="position:absolute; right:10px; top:53px; cursor:pointer;"></i>
                             </div>
                             <div class="form-info-fild" style="position: relative;">
-                                <label><img src="assets/web/email-id.png" width="24"> Confirm Password</label>
+                                <label><img src="assets/web/confirm-password.png" width="24"> Confirm Password</label>
                                 <input type="password" id="confirm-password" name="password_confirmation"
                                     placeholder="Confirm your password">
                                 <span class="error-text text-danger"></span>
@@ -165,7 +165,7 @@
                             </div>
                             <div class="submit-btn-info">
                                 <button type="submit" class="submit-btn-infobnt-verify">
-                                    Submit</button>
+                                    Sign Up</button>
                             </div>
                             <!--</form>-->
                         </div>
@@ -187,7 +187,7 @@
                                 <span class="error-text text-danger"></span>
                             </div>
                             <div class="form-info-fild position-relative">
-                                <label><img src="assets/web/email-id.png" width="24"> Password</label>
+                                <label><img src="assets/web/password.png" width="24"> Password</label>
                                 <input type="password" id="login-password" name="password"
                                     placeholder="Enter your password">
                                 <i class="fa fa-eye toggle-password"

@@ -161,6 +161,9 @@ header.header--sticky.header--transparent {
               popup.classList.add('active');
               document.body.classList.add('noscroll2');
               document.documentElement.classList.add('noscroll2'); // Add to <html>
+               // Default show login form
+                document.getElementById('register-section').style.display = 'none';
+                document.getElementById('login-section').style.display = 'block';
           }
 
           function closeCustomPopup() {

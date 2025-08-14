@@ -51,7 +51,7 @@
 			</a>
 		</li> --}}
 
-		{{-- @php
+		@php
             $pages = Helper::pages();
         @endphp
 
@@ -70,7 +70,7 @@
 					</li>
                 @endforeach
 			</ul>
-		</li> --}}
+		</li>
 
 	</ul>
 </aside>

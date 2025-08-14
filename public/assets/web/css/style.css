@@ -144,7 +144,7 @@ hr {
   margin: 0;
   margin-bottom: 20px;   font-family: "Montserrat", sans-serif;
 }
-span{ font-family: "Montserrat", sans-serif;}
+/* span{ font-family: "Montserrat", sans-serif;}
 h1,
 h2,
 h3,
@@ -161,7 +161,7 @@ h6,
   font-family: "Montserrat", sans-serif;
   line-height: 1.4074;
   color: var(--color-heading);
-}
+} */
 
 h1,
 .h1 {
@@ -305,7 +305,7 @@ p {
   font-size: var(--font-size-b2);
   line-height: var(--line-height-b2);
   font-weight: var(--p-regular);
-  color: var(--color-body);
+  /* color: var(--color-body); */
   margin: 0 0 30px;
 }
 @media only screen and (max-width: 767px) {
@@ -401,7 +401,7 @@ var {
 }
 
 /*---------------------------
-	List Style 
+	List Style
 ---------------------------*/
 ul,
 ol {
@@ -821,7 +821,7 @@ blockquote b {
 }
 
 /*=========================
-    Section Separation 
+    Section Separation
 ==========================*/
 .slick-dotted.slick-slider {
   margin-bottom: 0;
@@ -5926,7 +5926,7 @@ input[type=submit]:hover {
 /*==============================
  *  Utilities
 =================================*/
-/* 
+/*
 font-family: 'Red Hat Display', sans-serif;
 */
 .clearfix:before,
@@ -5965,7 +5965,7 @@ iframe {
   }
 }
 /*===============================
-    Background Color 
+    Background Color
 =================================*/
 .bg-color-primary {
   background: var(--color-primary);
@@ -5996,7 +5996,7 @@ iframe {
 }
 
 /*===========================
-Background Image 
+Background Image
 =============================*/
 .bg_image--1 {
   background-image: url(../images/bg/bg-image-1.jpg);
@@ -6564,7 +6564,7 @@ textarea:-ms-input-placeholder {
 }
 
 /*=============================
-	Overlay styles 
+	Overlay styles
 ==============================*/
 [data-overlay],
 [data-black-overlay],
@@ -6668,7 +6668,7 @@ textarea:-ms-input-placeholder {
 }
 
 /*------------------------------
-    Scroll Up 
+    Scroll Up
 --------------------------------*/
 #scrollUp {
   width: 70px;
@@ -6762,7 +6762,7 @@ textarea:-ms-input-placeholder {
 }
 
 /*--------------------
-    Contact Form 
+    Contact Form
 ----------------------*/
 .form-message {
   margin-bottom: 0;
@@ -6802,7 +6802,7 @@ textarea:-ms-input-placeholder {
 }
 
 /*------------------------
-    Header Sticky 
+    Header Sticky
 --------------------------*/
 @media (prefers-reduced-motion: no-preference) {
   :root {
@@ -6924,9 +6924,9 @@ a.over-link {
   margin-left: 10px;
 }
 
-p {
+/* p {
   color: var(--color-body);
-}
+} */
 
 a {
   transition: var(--transition);
@@ -10873,7 +10873,7 @@ body.sal-disabled [data-sal|=flip] {
 
 /*----Headers Style----*/
 /*-------------------
-    Header Styles  
+    Header Styles
 ---------------------*/
 .logo img {
     max-width: 180px;
@@ -10977,7 +10977,7 @@ body.sal-disabled [data-sal|=flip] {
 }
 
 /*-------------------
-    Humbergur Styles  
+    Humbergur Styles
 ---------------------*/
 .tmp-menu-bars {
   width: 40px;
@@ -11038,7 +11038,7 @@ body.sal-disabled [data-sal|=flip] {
 }
 
 /*--------------------------
-    Only Responsive Header  
+    Only Responsive Header
 ------------------------------*/
 .tmp-responsive-header-style {
   position: absolute;
@@ -11147,7 +11147,7 @@ header.header-full-width.header--sticky.sticky {
 }
 
 /*--------------------
-    Main Menu Style  
+    Main Menu Style
 ----------------------*/
 .tmp-mainmenu-nav .tmp-mainmenu {
   display: flex;
@@ -11490,7 +11490,7 @@ header.header-full-width.header--sticky.sticky {
 }
 
 /*----------------------------
-    Mobile Menu Styles  
+    Mobile Menu Styles
 ------------------------------*/
 .tmp-popup-mobile-menu {
   z-index: 9999;
@@ -11622,7 +11622,7 @@ header.header-full-width.header--sticky.sticky {
 }
 
 /*-------------------------
-    Offcanvas Menu Style  
+    Offcanvas Menu Style
 ---------------------------*/
 .tmp-sidebar-area {
   width: 400px;
@@ -15817,7 +15817,7 @@ Section Head
 }
 
 /*-----------------------
-    Portfolio Arrow Icon  
+    Portfolio Arrow Icon
 -------------------------*/
 .tmp-arrow-icon-btn {
   height: 50px;
@@ -15877,7 +15877,7 @@ Section Head
 }
 
 /*--------------------
-    Read More Btn  
+    Read More Btn
 ---------------------*/
 .read-more-btn {
   color: var(--color-heading);
@@ -15897,7 +15897,7 @@ Section Head
 }
 
 /*--------------------
-    Custom Button  
+    Custom Button
 ----------------------*/
 .custom-btn {
   width: 50px;
@@ -22202,7 +22202,7 @@ body.loaded {
 }
 
 /*----------------------
-    Tmp Portfolio  
+    Tmp Portfolio
 -----------------------*/
 .tmp-portfolio {
   position: relative;
@@ -24024,7 +24024,7 @@ section.svg-container svg.radial-progress:nth-last-of-type(0) {
 }
 
 /*-----------------------
-    Progress Bar 
+    Progress Bar
 -----------------------*/
 .single-progress + .single-progress {
   margin-top: 40px;
@@ -24106,7 +24106,7 @@ section.svg-container svg.radial-progress:nth-last-of-type(0) {
 }
 
 /*-----------------------------------
-    Radial Progress 
+    Radial Progress
 -----------------------------------*/
 .radial-progress-single {
   text-align: center;
@@ -24156,7 +24156,7 @@ section.svg-container svg.radial-progress:nth-last-of-type(0) {
   color: var(--color-body);
 }
 
-/* -------------------------------- 
+/* --------------------------------
 
 Primary style
 
@@ -24212,9 +24212,9 @@ Primary style
   opacity: 1;
 }
 
-/* -------------------------------- 
+/* --------------------------------
 
-  xrotate-1 
+  xrotate-1
 
   -------------------------------- */
 .cd-headline.rotate-1 .cd-words-wrapper {
@@ -24386,9 +24386,9 @@ Primary style
     opacity: 0;
   }
 }
-/* -------------------------------- 
+/* --------------------------------
 
-  xtype 
+  xtype
 
   -------------------------------- */
 .cd-headline.type .cd-words-wrapper {
@@ -24503,9 +24503,9 @@ Primary style
     opacity: 0;
   }
 }
-/* -------------------------------- 
+/* --------------------------------
 
-  xrotate-2 
+  xrotate-2
 
   -------------------------------- */
 .cd-headline.rotate-2 .cd-words-wrapper {
@@ -24692,9 +24692,9 @@ Primary style
     transform: translateZ(-20px) rotateX(-90deg);
   }
 }
-/* -------------------------------- 
+/* --------------------------------
 
-  xloading-bar 
+  xloading-bar
 
   -------------------------------- */
 .cd-headline.loading-bar span {
@@ -24742,9 +24742,9 @@ Primary style
   top: 0;
 }
 
-/* -------------------------------- 
+/* --------------------------------
 
-  xslide 
+  xslide
 
   -------------------------------- */
 .cd-headline.slide span {
@@ -24883,9 +24883,9 @@ Primary style
     transform: translateY(100%);
   }
 }
-/* -------------------------------- 
+/* --------------------------------
 
-  xclip 
+  xclip
 
   -------------------------------- */
 .cd-headline.clip span {
@@ -24916,9 +24916,9 @@ Primary style
   opacity: 1;
 }
 
-/* -------------------------------- 
+/* --------------------------------
 
-  xzoom 
+  xzoom
 
   -------------------------------- */
 .cd-headline.zoom .cd-words-wrapper {
@@ -25020,9 +25020,9 @@ Primary style
     transform: translateZ(-100px);
   }
 }
-/* -------------------------------- 
+/* --------------------------------
 
-  xrotate-3 
+  xrotate-3
 
   -------------------------------- */
 .cd-headline.rotate-3 .cd-words-wrapper {
@@ -25143,9 +25143,9 @@ Primary style
     transform: rotateY(-180deg);
   }
 }
-/* -------------------------------- 
+/* --------------------------------
 
-  xscale 
+  xscale
 
   -------------------------------- */
 .cd-headline.scale b {
@@ -25283,9 +25283,9 @@ Primary style
     opacity: 0;
   }
 }
-/* -------------------------------- 
+/* --------------------------------
 
-  xpush 
+  xpush
 
   -------------------------------- */
 .cd-headline.push b {
@@ -26086,7 +26086,7 @@ Primary style
 }
 
 /*------------------
-Right Demo  
+Right Demo
 --------------------*/
 .tmp-right-demo {
   width: 40px;
@@ -26155,7 +26155,7 @@ Right Demo
 }
 
 /*-------------------
- Popup Tab  
+ Popup Tab
 -----------------------*/
 .popuptab-area {
   justify-content: center;
@@ -26198,7 +26198,7 @@ Right Demo
 }
 
 /*-----------------------
-    Demo Modal Popup  
+    Demo Modal Popup
 ------------------------*/
 .demo-modal-area {
   width: 100%;
@@ -26462,7 +26462,7 @@ Right Demo
 }
 
 /*---------------------------------
-    Right Demo Light Version  
+    Right Demo Light Version
 ----------------------------------*/
 .demo-modal-area.active-light .wrapper .tmp-modal-inner {
   background: #EDEDED;
@@ -28109,7 +28109,7 @@ body.white-version .card-greeting p {
 }
 
 /*---------------------
-    Card Styles  
+    Card Styles
 ----------------------*/
 .tmp-breadcrumb-image {
   height: 400px;
@@ -30093,9 +30093,9 @@ p.hello-title {
 
     .custom-popup-box {
       background: #fff;
- 
+
       border-radius: 12px;
-      width: 650px;
+      width: 800px;
       text-align: center;
       position: relative;
       animation: zoomFade 0.4s ease forwards;
@@ -30157,6 +30157,7 @@ html.noscroll2 * {
   overscroll-behavior: none;
   touch-action: none;
 }
+
 html.noscroll2, body.noscroll2 {
   overflow: hidden;
   height: 100vh;
@@ -30172,8 +30173,10 @@ html.noscroll2, body.noscroll2 {
     border-radius: 10px 0px 0px 10px;
     background-size: cover;
     background-position: center center;
-    min-height: 450px;
+    min-height: 610px;
 }
+
+
 
 .logo-title-info span {
     padding: 0px 0px 19px 0;
@@ -30182,7 +30185,7 @@ html.noscroll2, body.noscroll2 {
 
 .right-info-rights {
     float: left;
-    padding: 34px 30px 20px 30px;
+    padding: 15px 30px 20px 30px;
     width: 50%;
     text-align: left;
 }
@@ -30217,7 +30220,8 @@ html.noscroll2, body.noscroll2 {
 }
 .form-info-fild {
     display: inline-block;
-    margin: 0 0 15px 0;
+    margin: 0 0 10px 0;
+    width: 100%;
 }
 
 
@@ -30227,12 +30231,12 @@ html.noscroll2, body.noscroll2 {
     margin: 0 5px 0px 0px;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    margin: 0; 
+    margin: 0;
 }
 
 .submit-btn-info button {
@@ -30414,7 +30418,7 @@ button.submit-btn-infobnt-verify {
     display: inline-block;
     border-radius: 6px;
     padding: 14px 10px !important;
-    margin: 20px 0 20px 0 !important;
+    margin: 0px 0 5px 0 !important;
 }
 p.info-donot a {
     color: #d34860;
@@ -30449,7 +30453,7 @@ button.active-slots {
     background-color: #52012c !important;
     color: #ffff !important;
 }
-	
+
 	.bg-ragi-info.booking-info img {
     min-height: 550px;
     object-fit: cover;
@@ -30662,12 +30666,12 @@ tr.heading-info th {
     border-bottom: solid 1px #efefef;
 }
 .box-info-data h3 {
-   
+
     font-size: 17px;
     font-weight: 500;
 }
 .box-info-data p {
-   
+
     font-size: 14px;
     margin: 0px;
 }
@@ -30768,7 +30772,7 @@ tr.heading-info th {
 
 
 
-  
+
 
     .filter-box select {
       padding: 10px;
@@ -30898,12 +30902,12 @@ span.upcoming-bookingbtn{
       font-size: 14px;
     }
 
-   
+
 
  .tmp-section-gap-info {
     padding: 185px 0;
 }
-    
+
 
 .submit-btn {
     display: block;
@@ -30989,7 +30993,7 @@ ul.slot-booking-box li {
     padding: 60px 0 0 0px;
 }
 .popup-box {
-  
+
     width: 90%!important;
     margin:0 auto;
 }
@@ -31004,7 +31008,7 @@ ul.slot-booking-box li {
     padding: 60px 0 0 0px;
 }
 .popup-box {
-  
+
     width: 90%!important;
     margin:0 auto;
 }

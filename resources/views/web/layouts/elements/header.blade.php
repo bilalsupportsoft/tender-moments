@@ -39,7 +39,7 @@
                             <div class="header-right-info d-flex align-items-center">
                                 <a class="tmp-btn hover-icon-reverse btn-border tmp-modern-button download-icon w-100 btn-md" href="javascript:void(0)" onClick="openCustomPopup()">
                                     <div class="icon-reverse-wrapper">
-                                        <span class="btn-text">Sign Up</span>
+                                        <span class="btn-text">Sign In</span>
                                         <div class="btn-hack"></div>
                                         <img src="assets/web/images/button/btg-bg.svg" alt="" class="btn-bg">
                                         <img src="assets/web/images/button/btg-bg-2.svg" alt="" class="btn-bg-hover">

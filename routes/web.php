@@ -20,6 +20,8 @@ use App\Http\Controllers\Web\BookingController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('/');
+Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
+Route::get('/terms-conditions', [HomeController::class, 'termCondition'])->name('term-condition');
 
 
 Route::post('/register', [AuthController::class, 'register'])->name('user.register');
