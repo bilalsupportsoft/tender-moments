@@ -18,6 +18,17 @@
         cursor: not-allowed;
         border-color: #ccc !important;
     }
+
+    .bg-ragi-info.signup-height {
+    height: 300px;
+    background-size: cover;
+}
+
+/* Sign In ke liye */
+.signin-height {
+    min-height: 400px;
+}
+
 </style>
 <div class="footer-stars-animation-wrapper-footer">
     <!-- Start Footer Area  -->
@@ -120,7 +131,7 @@
     <div class="custom-popup-box">
         <div class="custom-close" onClick="closeCustomPopup()">×</div>
         <div class="register-infotech">
-            <div class="bg-ragi-info login-info">
+            <div class="bg-ragi-info login-info signup-height">
                 <div class="logo-title-info">
                 </div>
             </div>
@@ -368,11 +379,19 @@
 
 <script>
     function showLoginForm() {
+        $('#register-section').hide();
+    $('#login-section').show();
+    // Height class change
+    $('.bg-ragi-info').removeClass('signup-height').addClass('signin-height');
         document.getElementById('register-section').style.display = 'none';
         document.getElementById('login-section').style.display = 'block';
     }
 
     function showRegisterForm() {
+        $('#login-section').hide();
+    $('#register-section').show();
+    // Height class change
+    $('.bg-ragi-info').removeClass('signin-height').addClass('signup-height');
         document.getElementById('login-section').style.display = 'none';
         document.getElementById('register-section').style.display = 'block';
     }

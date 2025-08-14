@@ -164,6 +164,12 @@ header.header--sticky.header--transparent {
                // Default show login form
                 document.getElementById('register-section').style.display = 'none';
                 document.getElementById('login-section').style.display = 'block';
+
+            const bgImage = document.querySelector('.bg-ragi-info');
+            if (bgImage) {
+            bgImage.classList.remove('signup-height');
+            bgImage.classList.add('signin-height');
+            }
           }
 
           function closeCustomPopup() {
