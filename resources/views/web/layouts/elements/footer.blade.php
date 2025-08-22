@@ -20,13 +20,20 @@
     }
 
     .bg-ragi-info.signup-height {
-    height: 300px;
-    background-size: cover;
-}
+        height: 300px;
+        background-size: cover;
+    }
 
-/* Sign In ke liye */
-.signin-height {
-    min-height: 400px;
+    /* Sign In ke liye */
+    .signin-height {
+        min-height: 400px;
+    }
+    input[type="radio"] ~ label::after {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    top: 4px;
+    border: none;
 }
 
 </style>
@@ -43,7 +50,7 @@
                     <div class="col-lg-5 col-md-6">
                         <div class="single-footer-wrapper border-right mr--20">
                             <div class="logo">
-                                <a href="index.html">
+                                <a href="{{ route('/') }}">
                                     <img src="assets/web/footer-logo.png" alt="">
                                 </a>
                                 <p
@@ -99,9 +106,9 @@
                             2025 | All Rights Reserved
                         </p>
 
-                        {{-- <p class="copy-right-para tmp-link-animation text-white">
+                        <p class="copy-right-para tmp-link-animation text-white">
                             <strong>ABN</strong> 52114429886
-                        </p> --}}
+                        </p>
                         <ul class="tmp-link-animation">
                             <li><a href="{{ route('term-condition') }} ">Terms &amp; Conditions</a></li>
                             <li><a href="{{ route('privacy-policy') }}">Privacy Policy</a></li>
@@ -166,7 +173,8 @@
                                     style="position:absolute; right:10px; top:53px; cursor:pointer;"></i>
                             </div>
                             <div class="form-info-fild" style="position: relative;">
-                                <label><img src="assets/web/confirm-password.png" width="24"> Confirm Password</label>
+                                <label><img src="assets/web/confirm-password.png" width="24"> Confirm
+                                    Password</label>
                                 <input type="password" id="confirm-password" name="password_confirmation"
                                     placeholder="Confirm your password">
                                 <span class="error-text text-danger"></span>
@@ -174,9 +182,28 @@
                                     onclick="togglePasswordVisibility('confirm-password', this)"
                                     style="position:absolute; right:10px; top:53px; cursor:pointer;"></i>
                             </div>
+
+                            <div class="form-info-fild">
+                                <div style="margin-top:8px;">
+                                    <input type="radio" id="resident_au" name="residency" value="australian"
+                                        required>
+                                    <label for="resident_au">Australian Resident</label>
+                                </div>
+
+                                <div>
+                                    <input type="radio" id="resident_nonau" name="residency"
+                                        value="non_australian" required>
+                                    <label for="resident_nonau">Non-Australian Resident</label>
+                                </div>
+
+                                <span class="error-text text-danger"></span>
+                            </div>
                             <div class="submit-btn-info">
-                                <button type="submit" class="submit-btn-infobnt-verify">
-                                    Sign Up</button>
+                                <button type="submit" class="submit-btn-infobnt-verify" id="registerBtn">
+                                    <span class="btn-text">Sign Up</span>
+                                    <span class="spinner-border spinner-border-sm text-light" role="status"
+                                        aria-hidden="true" style="display:none;"></span>
+                                </button>
                             </div>
                             <!--</form>-->
                         </div>
@@ -293,7 +320,8 @@
                                 </ul>
                             </div>
                             <div class="check-availability-btn">
-                                <button type="submit" id="continueBtn" disabled onClick="openAvailabilityPopup()">Continue</button>
+                                <button type="submit" id="continueBtn" disabled
+                                    onClick="openAvailabilityPopup()">Continue</button>
                             </div>
                             <!--</form>-->
                         </div>
@@ -348,7 +376,7 @@
                                             </div>
                                             <div class="info-details-bar">
                                                 <h3>Price</h3>
-                                                <p id="slot-price"><strong>$220 </strong> (GST inclusive) </p>
+                                                <p id="slot-price"><strong>$220 </strong></p>
                                             </div>
                                         </div>
                                     </div>
@@ -362,7 +390,8 @@
                                 <div class="button-go-back">
                                     <button id="bookPayBtn" type="button" onclick="bookAndPay()">
                                         <span id="bookPayText">Book & Pay</span>
-                                        <span id="bookPaySpinner" class="spinner-border spinner-border-sm" style="display:none;"></span>
+                                        <span id="bookPaySpinner" class="spinner-border spinner-border-sm"
+                                            style="display:none;"></span>
                                     </button>
                                 </div>
                             </div>
@@ -380,18 +409,18 @@
 <script>
     function showLoginForm() {
         $('#register-section').hide();
-    $('#login-section').show();
-    // Height class change
-    $('.bg-ragi-info').removeClass('signup-height').addClass('signin-height');
+        $('#login-section').show();
+        // Height class change
+        $('.bg-ragi-info').removeClass('signup-height').addClass('signin-height');
         document.getElementById('register-section').style.display = 'none';
         document.getElementById('login-section').style.display = 'block';
     }
 
     function showRegisterForm() {
         $('#login-section').hide();
-    $('#register-section').show();
-    // Height class change
-    $('.bg-ragi-info').removeClass('signin-height').addClass('signup-height');
+        $('#register-section').show();
+        // Height class change
+        $('.bg-ragi-info').removeClass('signin-height').addClass('signup-height');
         document.getElementById('login-section').style.display = 'none';
         document.getElementById('register-section').style.display = 'block';
     }
@@ -405,6 +434,15 @@
         form.find('.error-text').text('');
         form.find('input').removeClass('is-invalid');
 
+        let btn = document.getElementById("registerBtn");
+        let btnText = btn.querySelector(".btn-text");
+        let spinner = btn.querySelector(".spinner-border");
+
+        // Show loader
+        btn.disabled = true;
+        btnText.style.display = "none";
+        spinner.style.display = "inline-block";
+
         $.ajax({
             url: '{{ route('user.register') }}',
             type: 'POST',
@@ -412,10 +450,20 @@
             success: function(response) {
                 // alert("Registration successful!");
                 // form[0].reset();
+                //         if (response.success === true) {
+                //             openVerifiedPopup();
+                //             $('#registerForm')[0].reset();
+                //             closeCustomPopup();
+                //     setTimeout(() => {
+                //     btn.disabled = false;
+                //     btnText.style.display = "inline";
+                //     spinner.style.display = "none";
+                // }, 3000);
+                //         }
+
                 if (response.success === true) {
-                    openVerifiedPopup();
-                    $('#registerForm')[0].reset();
-                    closeCustomPopup();
+                    sessionStorage.setItem("openVerifiedPopup", "true");
+                    location.reload();
                 }
             },
             error: function(xhr) {
@@ -429,6 +477,9 @@
                 } else {
                     alert("Something went wrong.");
                 }
+                btn.disabled = false;
+                btnText.style.display = "inline";
+                spinner.style.display = "none";
             }
         });
     });
@@ -548,7 +599,7 @@
                     $.each(response.slots, function(index, slot) {
                         const button = $(
                             `<li><button class="slot-btn">${slot.start_time} - ${slot.end_time}</button></li>`
-                            );
+                        );
                         button.find('button').on('click', function() {
                             $('.slot-btn').removeClass('selected');
                             $(this).addClass('selected');
@@ -570,52 +621,87 @@
             }
         });
     }
+    let userResidency = "{{ Auth::user()->residency ?? '' }}";
 
     function setSelectedDate() {
         $('#slot-date').text(selectedDate);
         $('#slot-time').text(`${selectedSlot.start_time} to ${selectedSlot.end_time} (20 Minutes)`);
-        $('#slot-price').html(`<strong>$${selectedSlot.price}</strong> (GST inclusive)`);
+        // $('#slot-price').html(`<strong>$${selectedSlot.price}</strong> (GST inclusive)`);
+
+        let basePrice = parseFloat(selectedSlot.total);
+        let residency = userResidency;
+
+        console.log(residency, 'ssss');
+
+        // if (residency === 'australian') {
+        //     $('#slot-price').html(`<strong>$${basePrice.toFixed(2)}</strong> (includes 10% GST)`);
+        // } else if (residency === 'non_australian') {
+        //     $('#slot-price').html(`<strong>$${basePrice.toFixed(2)}</strong> (GST Free)`);
+        // } else {
+        //     $('#slot-price').html(`<strong>$${basePrice.toFixed(2)}(not)</strong>`);
+        // }
+        if (residency === 'australian') {
+        $('#slot-price').html(`
+            <div>Base Price: <strong>$${parseFloat(selectedSlot.price).toFixed(2)}</strong></div>
+            <div>(Includes GST 10%): <strong>$${parseFloat(selectedSlot.gst_amount).toFixed(2)}</strong></div>
+            <div>Total: <strong>$${parseFloat(selectedSlot.total).toFixed(2)}</strong></div>
+        `);
+    } else if (residency === 'non_australian') {
+        $('#slot-price').html(`
+            <div>Total (GST Free): <strong>$${parseFloat(selectedSlot.price).toFixed(2)}</strong></div>
+        `);
+    } else {
+        $('#slot-price').html(`<strong>$${parseFloat(selectedSlot.price).toFixed(2)}</strong> (not)`);
+    }
     }
 
 
 
-////.........................booking...................................
-function bookAndPay() {
-    if (!selectedDate || !selectedSlot || !selectedSlot.id) {
-        alert('Please select a valid slot first.');
-        return;
-    }
+    ////.........................booking...................................
+    function bookAndPay() {
+        if (!selectedDate || !selectedSlot || !selectedSlot.id) {
+            alert('Please select a valid slot first.');
+            return;
+        }
 
-    let btn = document.getElementById('bookPayBtn');
-    let text = document.getElementById('bookPayText');
-    let spinner = document.getElementById('bookPaySpinner');
+        let btn = document.getElementById('bookPayBtn');
+        let text = document.getElementById('bookPayText');
+        let spinner = document.getElementById('bookPaySpinner');
 
-    // Show spinner, hide text
-    text.style.display = '';
-    spinner.style.display = 'inline-block';
-    btn.disabled = true;
+        // Show spinner, hide text
+        text.style.display = '';
+        spinner.style.display = 'inline-block';
+        btn.disabled = true;
 
-    $.ajax({
-        url: "{{ route('book.slot') }}",
-        method: 'POST',
-        data: {
-            _token: '{{ csrf_token() }}',
-            slot_id: selectedSlot.id,
-            date: selectedDate,
-            price: selectedSlot.price
-        },
-        success: function (response) {
-            if (response.success) {
-                window.location.href = response.redirect_url;
-            } else {
-                alert(response.message || 'Booking failed.');
+        $.ajax({
+            url: "{{ route('book.slot') }}",
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                slot_id: selectedSlot.id,
+                date: selectedDate,
+                price: selectedSlot.price,
+                gst_amount: selectedSlot.gst_amount,
+                total_amount: selectedSlot.total,
+            },
+            success: function(response) {
+                if (response.success) {
+                    window.location.href = response.redirect_url;
+                } else {
+                    alert(response.message || 'Booking failed.');
+                }
+            },
+            error: function() {
+                alert('Something went wrong. Please try again.');
             }
-        },
-        error: function () {
-            alert('Something went wrong. Please try again.');
+        });
+    }
+
+    $(document).ready(function() {
+        if (sessionStorage.getItem("openVerifiedPopup") === "true") {
+            closeCustomPopup();
+            openVerifiedPopup();
+            sessionStorage.removeItem("openVerifiedPopup");
         }
     });
-}
-
-
 </script>

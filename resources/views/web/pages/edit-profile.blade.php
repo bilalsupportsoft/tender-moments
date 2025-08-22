@@ -20,7 +20,7 @@
                                     <img src="{{ Auth::user()->avatar ? asset(Auth::user()->avatar) : asset('assets/web/images/no-user.jpg') }}"id="preview"
                                         alt="Profile Picture">
                                     <br />
-                                    <label class="upload-label" for="profileUpload">Change Photo</label>
+                                    <label class="upload-label" for="profileUpload">Change Photo (Optional)</label>
                                     <input type="file" id="profileUpload" name="profile_image" accept="image/*"
                                         onchange="loadImage(event)">
                                 </div>
@@ -34,10 +34,9 @@
                                 <label for="email" class="name-of-fild">Email</label>
                                 <input type="email" name="email" value="{{ Auth::user()->email }}" placeholder="Email"class="fild-profile-info">
                                 <span class="text-danger error-text email_error"></span><br>
-
-                                <label for="mobile" class="name-of-fild">Mobile No.</label>
+                                {{-- <label for="mobile" class="name-of-fild">Mobile No.</label>
                                 <input type="text" name="mobile" value="{{ Auth::user()->phone }}"
-                                    placeholder="+61 2568 69265265" class="fild-profile-info">
+                                    placeholder="+61 2568 69265265" class="fild-profile-info"> --}}
                                 <span class="text-danger error-text mobile_error"></span>
                                 <button type="submit" class="submit-btn">Save Changes</button>
                             </form>

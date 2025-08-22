@@ -5808,9 +5808,9 @@ input[type=radio] {
 input[type=checkbox] ~ label,
 input[type=radio] ~ label {
   position: relative;
-  font-size: 12px;
+  font-size: 15px;
   line-height: 17px;
-  color: var(--color-body);
+  /* color: var(--color-body); */
   font-weight: 400;
   padding-left: 25px;
   cursor: pointer;
@@ -5824,7 +5824,7 @@ input[type=radio] ~ label::before {
   width: 15px;
   height: 15px;
   background-color: transparent;
-  border: 1px solid var(--color-body);
+  border: 1px solid #1c1717;
   border-radius: 2px;
   transition: all 0.3s;
   border-radius: 2px;
@@ -5861,7 +5861,7 @@ input[type=radio] ~ label::after {
   width: 8px;
   height: 8px;
   left: 3px;
-  background: #fff;
+  background: #501717;
   border-radius: 50%;
 }
 
@@ -30173,7 +30173,7 @@ html.noscroll2, body.noscroll2 {
     border-radius: 10px 0px 0px 10px;
     background-size: cover;
     background-position: center center;
-    min-height: 610px;
+    min-height: 700px;
 }
 
 
@@ -30970,6 +30970,7 @@ ul.slot-booking-box li button {
     font-weight: 500;
     padding: 10px 8px !important;
     border: solid 1px #52012c;
+    width: 100%;
 }
 ul.slot-booking-box {
     max-height: 180px;
@@ -30981,8 +30982,8 @@ ul.slot-booking-box li {
     display: inline-block;
     padding: 0px 0 0px 0;
     margin: 0px 12px 12px 0px;
+    width: 170px;
 }
-
 .booking-avalable-data {
     padding: 70px 0 0 0;
 }

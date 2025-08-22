@@ -25,6 +25,7 @@ class AuthController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->residency = $request->residency;
         $user->password = Hash::make($request->password);
         $user->save();
         Auth::login($user);
@@ -45,7 +46,7 @@ class AuthController extends Controller
         if (Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
                 'success' => true,
-                'redirect_url' => route('my-booking')
+                'redirect_url' => route('/')
             ]);
         } else {
             return response()->json([

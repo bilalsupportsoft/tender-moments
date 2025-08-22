@@ -13,6 +13,8 @@ class Booking extends Model
         'slot_id',
         'slot_date',
         'price',
+        'gst_amount',
+        'total_amount',
         'status',
     ];
 

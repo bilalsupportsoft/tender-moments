@@ -12,54 +12,62 @@
             <span class=" fw-light">Edit Slot</span>
         </h5>
         <div class="row">
-            <div class="col-xl-6 col-lg-6">
+            <div class="col-xl-12 col-lg-12">
                 <div class="card profile-card">
                     <div class="card-body  pb-5">
-                        <form action="{{ route('admin.slot.update', $slot->id) }}" method="POST"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Price</label>
-                                        <input type="number" name="price" class="form-control" value="{{ $slot->price }}" placeholder="price">
-                                        @error('price')
+                        <h4>Edit Slots for {{ \Carbon\Carbon::parse($slot->slot_date)->format('d-M-Y') }}</h4>
+
+                        <table class="table table-bordered" id="bannersTable">
+                            <thead>
+                                <tr>
+                                    <th>Slot Date</th>
+                                    <th>Start Time</th>
+                                    <th>End Time</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($slots as $s)
+                                <tr>
+                                    <form action="{{ route('admin.slot.update', $s->id) }}" method="POST">
+                                        @csrf
+                                        <td>
+                                            <input type="text" id="datepicker" name="slot_date" value="{{ \Carbon\Carbon::parse($s->slot_date)->format('d-m-Y') }}" class="form-control">
+                                            @error('slot_date')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Slot Date</label>
-                                        <input type="text" id="datepicker" name="slot_date" class="form-control" value="{{ \Carbon\Carbon::parse($slot->slot_date)->format('d-m-Y') }}" placeholder="Select Slot Date">
-                                        @error('slot_date')
+                                        </td>
+                                        <td>
+                                            <input type="text" id="start_time" name="start_time" value="{{ $s->start_time }}" class="form-control">
+                                            @error('start_time')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Start Time</label>
-                                        <input type="text" id="start_time" name="start_time" class="form-control" value="{{ $slot->start_time }}" placeholder="Start Time">
-                                        @error('start_time')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                    </div>
-                                </div>
-                                <!-- End Time -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>End Time (20 mins session)</label>
-                                        <input type="text" id="end_time" name="end_time" class="form-control" value="{{ $slot->end_time }}" placeholder="End Time" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pt-4">
-                                <div class="col-md-12 submit-btn">
-                                    <button type="submit" class="btn btn-secondary">Update</button>
-                                </div>
-                            </div>
-                        </form>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="end_time" name="end_time" value="{{ $s->end_time }}" class="form-control">
+                                            @error('end_time')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                        </td>
+                                        <td>
+                                            <a
+                                            class="toggle-status btn btn-sm {{ $s->status ? 'btn-success' : 'btn-danger' }}"
+                                            data-id="{{ $s->id }}" style="color: #fff">
+                                            {{ $s->status ? 'Active' : 'Inactive' }}
+                                        </a>
+                                        </td>
+                                        <td>
+                                            <button type="submit" class="btn btn-sm btn-primary">Update</button>
+
+                                            <a onclick="deleteslot('{{ $s->id }}',this)"
+                                                class="btn btn-danger btn-sm" style="color: white">Delete</a>
+                                        </td>
+                                    </form>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -70,9 +78,11 @@
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
-flatpickr("#datepicker", {
+    $('#bannersTable').DataTable({});
+
+    flatpickr("#datepicker", {
     dateFormat: "d-m-Y",
-    minDate: "today",
+    minDate: new Date().fp_incr(2),
     disableMobile: true,
     onChange: function(selectedDates) {
         const today = new Date();
@@ -81,36 +91,106 @@ flatpickr("#datepicker", {
             selectedDate.getDate() === today.getDate() &&
             selectedDate.getMonth() === today.getMonth() &&
             selectedDate.getFullYear() === today.getFullYear();
-
-        // Update minTime dynamically if needed
-        startTimePicker.set('minTime', isToday ? today.toTimeString().slice(0, 5) : "00:00");
     }
 });
 
-const startTimePicker = flatpickr("#start_time", {
-    enableTime: true,
-    noCalendar: true,
-    dateFormat: "h:i K",
-    time_24hr: false,
-    minTime: "00:00", // default
-    onChange: function (selectedDates) {
-        if (selectedDates.length > 0) {
-            let start = selectedDates[0];
-            let end = new Date(start.getTime() + 20 * 60000);
-            let options = { hour: 'numeric', minute: '2-digit', hour12: true };
-            let formattedEnd = end.toLocaleTimeString([], options);
-            document.getElementById('end_time').value = formattedEnd;
+
+    flatpickr("#start_time", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "h:i K",
+    });
+
+    flatpickr("#end_time", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "h:i K",
+    });
+
+const csrfToken = '{{ csrf_token() }}';
+        $('.toggle-status').on('click', function() {
+            let btn = $(this);
+            let id = btn.data('id');
+            let url = '{{ route('admin.slot.status', ':id') }}';
+            url = url.replace(':id', id);
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to change the status.",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#aaa',
+                confirmButtonText: 'change'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data: {
+                            _token: csrfToken
+                        },
+                        success: function(response) {
+                            if (response.status) {
+                                btn.text(response.new_status ? 'Active' : 'Inactive');
+                                if (response.new_status) {
+                                    btn.removeClass('btn-danger').addClass('btn-success');
+                                } else {
+                                    btn.removeClass('btn-success').addClass('btn-danger');
+                                }
+                                setFlesh('success',
+                                    'status updated successfully');
+                            } else {
+                                Swal.fire('Failed!', 'Status update failed', 'error');
+                            }
+                        },
+                        error: function() {
+                            Swal.fire('Error!', 'Something went wrong', 'error');
+                        }
+                    });
+                }
+            });
+        });
+
+        function deleteslot(id, e) {
+            let url = '{{ route('admin.slot.destroy', ':id') }}';
+            url = url.replace(':id', id);
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to delete this",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Delete'
+            }).then((result) => {
+                if (result.isConfirmed == true) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: url,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            if (response.status == true) {
+                                $(e).closest("tr").remove();
+                                setFlesh('success', 'deleted successfully');
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 1000);
+                            } else {
+                                setFlesh('error', 'Something went wrong please try again');
+                            }
+                        },
+                        error: function(data) {
+                            setFlesh('error', 'Something went wrong please try again');
+                        }
+                    });
+
+                }
+            })
         }
-    }
-});
-
-flatpickr("#end_time", {
-    enableTime: true,
-    noCalendar: true,
-    dateFormat: "h:i K",
-    time_24hr: false,
-    clickOpens: false
-});
 </script>
 
 </script>

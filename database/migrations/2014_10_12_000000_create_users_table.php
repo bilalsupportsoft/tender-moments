@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('latitude')->default('');
             $table->string('longitude')->default('');
             $table->string('timezone')->default('Australia/Sydney');
+            $table->string('residency')->nullable();
             $table->text('avatar')->default('');
             $table->text('bio')->default('');
             $table->string('device_token')->default('');

@@ -8,7 +8,7 @@ use App\Models\Slot;
 use App\Models\Booking;
 use Exception;
 use Carbon\Carbon;
-
+use  DB;
 class SlotController extends Controller
 {
 
@@ -16,7 +16,17 @@ class SlotController extends Controller
     public function index()
     {
 
-        $slots = Slot::with('booking')->get();
+        // $slots = Slot::with('booking')->get();
+        $slots = Slot::whereIn('id', function ($q) {
+            $q->selectRaw('MAX(id)')
+              ->from('slots')
+              ->groupBy('slot_date');
+        })
+        ->withCount(['dateSlots as slot_count' => function ($q) {
+            $q->selectRaw('count(*)');
+        }])
+        ->orderBy('slot_date', 'asc')
+        ->get();
         return view("admin.slot.index", compact('slots'));
     }
 
@@ -42,38 +52,72 @@ class SlotController extends Controller
         return view("admin.slot.create");
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-
         $request->validate([
             'price' => 'required',
             'slot_date' => 'required',
             'start_time' => 'required',
-
+            'end_time' => 'required',
         ]);
 
         $slot_date = Carbon::createFromFormat('d-m-Y', $request->slot_date)->format('Y-m-d');
-        $start_time = Carbon::createFromFormat('h:i A', $request->start_time)->format('H:i:s');
-        $end_time = Carbon::createFromFormat('h:i A', $request->end_time)->format('H:i:s');
-        try {
-            Slot::create([
-                'price' => $request->price,
-                'slot_date' => $slot_date,
-                'start_time' => $start_time,
-                'end_time' => $end_time,
-            ]);
+        $start_time = Carbon::createFromFormat('h:i A', $request->start_time);
+        $end_time   = Carbon::createFromFormat('h:i A', $request->end_time);
 
-            return redirect()->route('admin.slot.index')->with('success', 'Slot added successfully!');
-        } catch (Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-            ]);
+        $lunchStart = Carbon::parse('12:00 PM');
+        $lunchEnd   = Carbon::parse('01:00 PM');
+
+        $duplicateFound = false; // 🔹 Track if duplicate slot found
+
+        try {
+            $current = $start_time->copy();
+
+            while ($current->lt($end_time)) {
+                $slotStart = $current->copy();
+                $slotEnd   = $slotStart->copy()->addMinutes(20);
+
+                if ($slotEnd->gt($end_time)) {
+                    break;
+                }
+
+                if ($slotStart->lt($lunchEnd) && $slotEnd->gt($lunchStart)) {
+                    $current = $lunchEnd->copy();
+                    continue;
+                }
+                $exists = Slot::where('slot_date', $slot_date)
+                    ->where('start_time', $slotStart->format('H:i:s'))
+                    ->where('end_time', $slotEnd->format('H:i:s'))
+                    ->exists();
+
+                if ($exists) {
+                    $duplicateFound = true;
+                    $current->addMinutes(20);
+                    continue;
+                }
+                Slot::create([
+                    'price'      => $request->price,
+                    'slot_date'  => $slot_date,
+                    'start_time' => $slotStart->format('H:i:s'),
+                    'end_time'   => $slotEnd->format('H:i:s'),
+                ]);
+
+                $current->addMinutes(20);
+            }
+            if ($duplicateFound) {
+                return redirect()->route('admin.slot.index')
+                    ->with('warning', 'Some slots were skipped because they already exist!');
+            }
+
+            return redirect()->route('admin.slot.index')
+                ->with('success', 'Slots generated successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
+
+
 
     /**
      * Display the specified resource.
@@ -86,7 +130,8 @@ class SlotController extends Controller
     public function edit($id)
     {
         $slot = Slot::findOrFail($id);
-        return view('admin.slot.edit', compact('slot'));
+        $slots = Slot::where('slot_date', $slot->slot_date)->get();
+        return view('admin.slot.edit', compact('slot', 'slots'));
     }
 
 
@@ -95,33 +140,50 @@ class SlotController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $request->validate([
-            'price' => 'required',
-            'slot_date' => 'required',
-            'start_time' => 'required',
-
+            'slot_date'   => 'required',
+            'start_time'  => 'required',
+            'end_time'    => 'required',
         ]);
-        try {
 
-            $slot_date = Carbon::createFromFormat('d-m-Y', $request->slot_date)->format('Y-m-d');
+        try {
+            $slot_date  = Carbon::createFromFormat('d-m-Y', $request->slot_date)->format('Y-m-d');
             $start_time = Carbon::createFromFormat('h:i A', $request->start_time)->format('H:i:s');
-            $end_time = Carbon::createFromFormat('h:i A', $request->end_time)->format('H:i:s');
+            $end_time   = Carbon::createFromFormat('h:i A', $request->end_time)->format('H:i:s');
+
+            // 🔍 duplicate check: same date + same start_time but different id
+            $exists = Slot::where('slot_date', $slot_date)
+                ->where('start_time', $start_time)
+                ->where('id', '!=', $id)
+                ->exists();
+
+            if ($exists) {
+                return redirect()->back()->withErrors(['start_time' => 'This slot time already exists for the selected date.']);
+            }
+
+            $lunchStart = Carbon::parse('12:00 PM')->format('H:i:s');
+            $lunchEnd   = Carbon::parse('01:00 PM')->format('H:i:s');
+
+            if (
+                ($start_time >= $lunchStart && $start_time < $lunchEnd) ||
+                ($end_time > $lunchStart && $end_time <= $lunchEnd) ||
+                ($start_time <= $lunchStart && $end_time >= $lunchEnd) // slot covering entire lunch break
+            ) {
+                return redirect()->back()->withErrors(['start_time' => 'Slot cannot be during lunch break (12:00 PM - 01:00 PM).']);
+            }
 
             $slot = Slot::findOrFail($id);
-            $slot->price = $request->price;
-            $slot->slot_date = $slot_date;
+            $slot->slot_date  = $slot_date;
             $slot->start_time = $start_time;
-            $slot->end_time = $end_time;
+            $slot->end_time   = $end_time;
             $slot->save();
-            return redirect()->route('admin.slot.index')->with('success', 'Slot updated successfully.');
-        } catch (Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-            ]);
+
+            return redirect()->back()->with('success', 'Slot updated successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
+
 
     public function destroy($id)
     {

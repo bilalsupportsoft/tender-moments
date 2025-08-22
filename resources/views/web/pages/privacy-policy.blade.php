@@ -11,6 +11,9 @@
         .text-color{
              color: black!important;
         }
+        body {
+            overflow: visible !important;
+            }
 </style>
 <div class="main-wrapper-inner bg-white">
     <div class="clearfix"></div>

@@ -23,7 +23,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Price</label>
-                                        <input type="number" name="price" class="form-control" placeholder="price">
+                                        <input type="number" name="price" class="form-control" placeholder="price" value="50">
                                         @error('price')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -50,8 +50,11 @@
                                 <!-- End Time -->
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>End Time (20 mins session)</label>
-                                        <input type="text" id="end_time" name="end_time" class="form-control" placeholder="End Time" readonly>
+                                        <label>End Time</label>
+                                        <input type="text" id="end_time" name="end_time" class="form-control" placeholder="End Time">
+                                        @error('end_time')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +75,7 @@
 <script>
  flatpickr("#datepicker", {
     dateFormat: "d-m-Y",
-    minDate: "today",
+    minDate: new Date().fp_incr(2),
     disableMobile: true,
     onChange: function(selectedDates) {
         const today = new Date();
@@ -81,33 +84,19 @@
             selectedDate.getDate() === today.getDate() &&
             selectedDate.getMonth() === today.getMonth() &&
             selectedDate.getFullYear() === today.getFullYear();
-
-        const startTimePicker = flatpickr("#start_time", {
-            enableTime: true,
-            noCalendar: true,
-            dateFormat: "h:i K",
-            time_24hr: false,
-            minTime: isToday ? today.toTimeString().slice(0, 5) : "00:00",
-            onChange: function (selectedDates) {
-                if (selectedDates.length > 0) {
-                    let start = selectedDates[0];
-                    let end = new Date(start.getTime() + 20 * 60000);
-                    let options = { hour: 'numeric', minute: '2-digit', hour12: true };
-                    let formattedEnd = end.toLocaleTimeString([], options);
-                    document.getElementById('end_time').value = formattedEnd;
-                }
-            }
-        });
-        startTimePicker.open();
     }
 });
-flatpickr("#end_time", {
-    enableTime: true,
-    noCalendar: true,
-    dateFormat: "h:i K",
-    time_24hr: false,
-    clickOpens: false
-});
+ flatpickr("#start_time", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "h:i K",
+    });
+
+    flatpickr("#end_time", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "h:i K",
+    });
 
 </script>
 

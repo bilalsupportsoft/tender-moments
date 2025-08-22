@@ -273,8 +273,8 @@ class AdminAuthController extends Controller
     {
         $TotalSlots = Slot::count();
         $TotalBooking = Booking::where('status','confirmed')->count();
-        $TotalPending = Booking::where('status','pending')->count();
-        $TotalCancelled = Booking::where('status','cancelled')->count();
+        $TotalUser = User::count();
+        $Recentusers = User::where('role', '!=', 'admin')->latest()->take(6)->get();
         $TotalActiveSlots = Slot::whereDoesntHave('bookingSlot')
         ->where(function ($query) {
             $query->where('slot_date', '>', Carbon::today())
@@ -283,7 +283,7 @@ class AdminAuthController extends Controller
                         ->where('end_time', '>', Carbon::now()->format('H:i:s'));
                   });
         })->count();
-        return view("admin.dashboard.index",compact('TotalSlots','TotalBooking','TotalCancelled','TotalPending','TotalActiveSlots'));
+        return view("admin.dashboard.index",compact('TotalSlots','TotalBooking','TotalUser','TotalActiveSlots','Recentusers'));
     }
 
 

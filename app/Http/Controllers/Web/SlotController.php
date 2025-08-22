@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Stripe\Stripe;
 use Mail, DB, Hash, Validator, File, Exception;
 use Stripe\Checkout\Session;
+use Illuminate\Support\Facades\Auth;
 
 class SlotController extends Controller
 {
@@ -35,10 +36,27 @@ class SlotController extends Controller
             $query->where('start_time', '>=', $currentTime);
         }
         $slots = $query->orderBy('start_time')->get(['id', 'start_time', 'end_time', 'price']);
-        $slots = $slots->map(function ($slot) {
+        $slots = $slots->map(function ($slot) use ($request) {
+            $gstRate   = 0.10; // 10%
+
+            $residency = Auth::user()->residency ?? 'non_australian';
+
+            if ($residency === 'australian') {
+                $gstAmount = $slot->price * $gstRate;
+                $total     = $slot->price + $gstAmount;
+                $gstRateShow = "10%";
+            } else {
+                $gstAmount = 0;
+                $total     = $slot->price;
+                $gstRateShow = "0%";
+            }
+
             return [
                 'id'         => $slot->id,
-                'price'      => $slot->price,
+                'price'      => number_format($slot->price, 2),
+                'gst_rate'   => $gstRateShow,
+                'gst_amount' => number_format($gstAmount, 2),
+                'total'      => number_format($total, 2),
                 'start_time' => Carbon::createFromFormat('H:i:s', $slot->start_time)->format('h:i A'),
                 'end_time'   => Carbon::createFromFormat('H:i:s', $slot->end_time)->format('h:i A'),
             ];
@@ -52,6 +70,7 @@ class SlotController extends Controller
 
     public function bookSlot(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'slot_id' => 'required|exists:slots,id',
             'date'    => 'required|date_format:d-m-Y',
@@ -59,26 +78,43 @@ class SlotController extends Controller
         ]);
 
         $slot = Slot::find($request->slot_id);
+
+        // GST Calculation
+        $gstRate = 0.10; // 10%
+
+        $residency = Auth::user()->residency ?? 'non_australian';
+        if ($residency === 'australian') {
+            $finalPrice  = $slot->price + ($slot->price * $gstRate);
+            $description = 'Slot Booking (includes 10% GST)';
+        } else {
+            $finalPrice  = $slot->price;
+            $description = 'Slot Booking (GST Free)';
+        }
+
+        // Save booking
         $booking = Booking::create([
             'user_id'   => auth()->id(),
             'slot_id'   => $slot->id,
             'slot_date' => Carbon::createFromFormat('d-m-Y', $request->date)->format('Y-m-d'),
-            'price'     => $request->price,
+            'price'   => $request->price,
+            'gst_amount'  => $request->gst_amount,
+            'total_amount'  => $request->total_amount,
             'status'    => 'pending'
         ]);
 
-        Stripe::setApiKey(config('services.stripe.secret'));
+        // Stripe setup
+        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
+        $priceInCents = intval($finalPrice * 100);
 
-        $priceInUSD = $request->price;
-        $priceInCents = intval($priceInUSD * 100);
-        $session = Session::create([
+        $session = \Stripe\Checkout\Session::create([
             'payment_method_types' => ['card'],
+            'customer_email' => Auth::user()->email,
             'line_items' => [[
                 'price_data' => [
-                    'currency' => 'usd',
+                    'currency' => 'usd', // change if needed
                     'product_data' => [
-                        'name' => 'Slot Booking',
-                        'description' => 'Booking slot payment'
+                        'name'        => 'Slot Booking',
+                        'description' => $description
                     ],
                     'unit_amount' => $priceInCents,
                 ],
@@ -90,7 +126,7 @@ class SlotController extends Controller
         ]);
 
         return response()->json([
-            'success' => true,
+            'success'      => true,
             'redirect_url' => $session->url
         ]);
     }

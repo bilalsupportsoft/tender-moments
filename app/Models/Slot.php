@@ -27,5 +27,14 @@ public function bookingSlot()
         return $this->hasOne(Booking::class);
     }
 
+    public function latestSlot()
+{
+    return $this->hasOne(Slot::class, 'slot_date', 'slot_date')->latestOfMany();
+}
+
+public function dateSlots()
+{
+    return $this->hasMany(Slot::class, 'slot_date', 'slot_date');
+}
 
 }

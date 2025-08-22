@@ -150,7 +150,7 @@
                                     width="60"></div>
                             <div class="date-and-info">
                                 <h4>Booking Price</h4>
-                                <p><strong>${{ $booking->price }}</strong></p>
+                                <p><strong>${{ $booking->total_amount }}</strong></p>
                             </div>
                         </div>
                     </div>
