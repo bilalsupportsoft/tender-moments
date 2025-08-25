@@ -17,6 +17,7 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Residency</th>
                                     <th>Slots</th>
                                 </tr>
                             </thead>
@@ -25,6 +26,8 @@
                                 <tr>
                                     <th>{{ $user->name }}</th>
                                     <th>{{ $user->email }}</th>
+                                    <th>{{ $user->residency }}</th>
+
                                     <th><a href="{{ route("admin.users.show",$user->id) }}" class="btn btn-sm btn-primary">View</a></th>
                                 </tr>
                                 @endforeach

@@ -32,7 +32,7 @@
             </h4>
             <p><strong>Name:</strong> {{ $user->name }}</p>
             <p><strong>Email:</strong> {{ $user->email }}</p>
-            <p><strong>Phone:</strong> {{ $user->phone }}</p>
+            <p><strong>Residency:</strong> {{ $user->residency }}</p>
             <p><strong>Joined:</strong> {{ $user->created_at->format('d M Y') }}</p>
         </div>
     </div>
