@@ -203,7 +203,7 @@
                                     </div>
                                     <div class="header-right-info d-flex align-items-center w-50 mt-5">
                                         <a class="tmp-btn hover-icon-reverse btn-border tmp-modern-button download-icon w-100 btn-md"
-                                            href="javascript:void(0)" onClick="openCustomPopup()">
+                                            href="javascript:void(0)" onClick="{{ Auth::check() ? 'openVerifiedPopup()' : 'openCustomPopup()' }}">
                                             <div class="icon-reverse-wrapper">
                                                 <span class="btn-text">Book Appointment</span>
                                                 <div class="btn-hack"></div>
