@@ -38,11 +38,10 @@
     </div>
 
     <!-- User Slots -->
-    <h2></h2>
+    {{-- <h2></h2>
     <h5 class="py-2 mb-2">
         <span class="text-dark fw-light"><strong> Slots </strong></span>
     </h5>
-    {{-- @if($bookings->count() > 0) --}}
     <div class="row">
         <div class="col-xl-12 col-lg-12">
             <div class="card">
@@ -84,10 +83,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    {{-- @else
-    <p>No slots booked yet.</p>
-@endif --}}
+    </div> --}}
 
 </div>
 @endsection

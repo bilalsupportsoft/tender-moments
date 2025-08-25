@@ -33,7 +33,7 @@
                                             <td> ( {{ $slot->slot_count }} )</td>
                                             <td>
                                                 <a href="{{ route('admin.slot.edit', $slot->id) }}"
-                                                    class="btn btn-secondary btn-sm">Edit</a>
+                                                    class="btn btn-secondary btn-sm">View</a>
                                             </td>
                                         </tr>
                                     @endforeach

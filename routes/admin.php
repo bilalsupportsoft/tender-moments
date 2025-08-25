@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\SlotController;
+use App\Http\Controllers\Admin\BookingController;
 
 
 /*
@@ -49,6 +50,10 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
         Route::post('profile', [AdminAuthController::class, 'updateAdminProfile'])->name('update.profile');
 
+        Route::get('user-chart-data', [AdminAuthController::class, 'UserChartData'])->name('UserChartData');
+        Route::get('booking-chart-data', [AdminAuthController::class, 'BookingChartData'])->name('BookingChartData');
+
+
 
 
         Route::name('slot.')->group(function () {
@@ -56,12 +61,21 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::get("slots-create", [SlotController::class, 'create'])->name('create');
             Route::post("slots-store", [SlotController::class, 'store'])->name('store');
             Route::delete("slots/delete/{id}", [SlotController::class, 'destroy'])->name('destroy');
-            Route::get('slots/{id}/edit', [SlotController::class, 'edit'])->name('edit');
-            Route::post('slots/{id}', [SlotController::class, 'update'])->name('update');
-            Route::post('slots/status/{id}', [SlotController::class, 'status'])->name('status');
-            Route::post('/booking/{id}/status', [SlotController::class, 'updateStatus'])->name('booking.updateStatus');
+            Route::get('slots/{id}/view', [SlotController::class, 'edit'])->name('edit');
 
         });
+
+
+        Route::name('bookings.')->group(function () {
+            Route::get("bookings", [BookingController::class, 'index'])->name('index');
+            Route::get("bookings-create", [BookingController::class, 'create'])->name('create');
+            Route::post("bookings-store", [BookingController::class, 'store'])->name('store');
+            Route::delete("bookings/delete/{id}", [BookingController::class, 'destroy'])->name('destroy');
+            Route::get('bookings/{id}/view', [BookingController::class, 'edit'])->name('edit');
+            Route::post('/bookings/{id}/status', [BookingController::class, 'updateStatus'])->name('updateStatus');
+
+        });
+
 
         Route::name('users.')->group(function () {
 

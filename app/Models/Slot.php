@@ -18,7 +18,7 @@ class Slot extends Model
 
     public function booking()
 {
-    return $this->hasMany(Booking::class);
+    return $this->hasOne(Booking::class, 'slot_id');
 }
 
 public function bookingSlot()

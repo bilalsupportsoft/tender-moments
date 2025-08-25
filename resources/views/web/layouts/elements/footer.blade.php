@@ -184,18 +184,17 @@
                             </div>
 
                             <div class="form-info-fild">
-                                <div style="margin-top:8px;">
+                                <label> I am</label>
+                                <div>
                                     <input type="radio" id="resident_au" name="residency" value="australian"
                                         required>
                                     <label for="resident_au">Australian Resident</label>
                                 </div>
-
                                 <div>
                                     <input type="radio" id="resident_nonau" name="residency"
                                         value="non_australian" required>
                                     <label for="resident_nonau">Non-Australian Resident</label>
                                 </div>
-
                                 <span class="error-text text-danger"></span>
                             </div>
                             <div class="submit-btn-info">
@@ -626,20 +625,8 @@
     function setSelectedDate() {
         $('#slot-date').text(selectedDate);
         $('#slot-time').text(`${selectedSlot.start_time} to ${selectedSlot.end_time} (20 Minutes)`);
-        // $('#slot-price').html(`<strong>$${selectedSlot.price}</strong> (GST inclusive)`);
-
         let basePrice = parseFloat(selectedSlot.total);
         let residency = userResidency;
-
-        console.log(residency, 'ssss');
-
-        // if (residency === 'australian') {
-        //     $('#slot-price').html(`<strong>$${basePrice.toFixed(2)}</strong> (includes 10% GST)`);
-        // } else if (residency === 'non_australian') {
-        //     $('#slot-price').html(`<strong>$${basePrice.toFixed(2)}</strong> (GST Free)`);
-        // } else {
-        //     $('#slot-price').html(`<strong>$${basePrice.toFixed(2)}(not)</strong>`);
-        // }
         if (residency === 'australian') {
         $('#slot-price').html(`
             <div>Base Price: <strong>$${parseFloat(selectedSlot.price).toFixed(2)}</strong></div>

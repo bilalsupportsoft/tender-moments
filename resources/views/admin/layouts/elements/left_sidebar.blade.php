@@ -29,15 +29,32 @@
                 <div data-i18n="Events">Slots</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item {{ request()->is('admin/slots*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.slot.index') }}" class="menu-link">
+                <li class="menu-item {{ request()->is('admin/slots-create') ? 'active' : '' }}">
+                    <a href="{{ route('admin.slot.create') }}" class="menu-link">
                         <div>Add Slot</div>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="menu-sub">
+                <li class="menu-item {{ request()->is('admin/slots') ? 'active' : '' }}">
+                    <a href="{{ route('admin.slot.index') }}" class="menu-link">
+                        <div>View Slot</div>
                     </a>
                 </li>
             </ul>
         </li>
 
-		<li class="menu-item {{ request()->is('admin/users/index') ? 'active' : ''}}">
+
+		<li class="menu-item {{ request()->is('admin/bookings') ? 'active' : ''}}">
+			<a href="{{route('admin.bookings.index')}}" class="menu-link">
+				<i class="menu-icon tf-icons bx bx-group"></i>
+				<div data-i18n="User">Bookings</div>
+			</a>
+		</li>
+
+
+		<li class="menu-item {{ request()->is('admin/users*') ? 'active' : ''}}">
 			<a href="{{route('admin.users.index')}}" class="menu-link">
 				<i class="menu-icon tf-icons bx bx-group"></i>
 				<div data-i18n="User">Users</div>

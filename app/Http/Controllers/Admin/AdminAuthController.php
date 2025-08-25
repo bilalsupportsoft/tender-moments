@@ -10,28 +10,26 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-use Mail, DB, Hash, Validator, Session, File,Exception;
+use Mail, DB, Hash, Validator, Session, File, Exception;
 
 class AdminAuthController extends Controller
 {
 
     public function index()
     {
-        try{
-            if(Auth::user()) {
+        try {
+            if (Auth::user()) {
                 $user = Auth::user();
-                if($user->role == "admin") {
+                if ($user->role == "admin") {
                     return redirect()->route('admin.dashboard');
-                }else{
-                    return back()->with("error","Opps! You do not have access this");
+                } else {
+                    return back()->with("error", "Opps! You do not have access this");
                 }
-            }else{
+            } else {
                 return redirect()->route('admin.login');
             }
-
-        }
-        catch(Exception $e){
-            return back()->with("error",$e->getMessage());
+        } catch (Exception $e) {
+            return back()->with("error", $e->getMessage());
         }
     }
 
@@ -49,32 +47,29 @@ class AdminAuthController extends Controller
 
     public function postLogin(Request $request)
     {
-        try{
+        try {
             $request->validate([
                 "email" => "required",
                 "password" => "required",
             ]);
-            $user = User::where('role','admin')->where('email',$request->email)->first();
-            if($user){
+            $user = User::where('role', 'admin')->where('email', $request->email)->first();
+            if ($user) {
                 $credentials = $request->only("email", "password");
-                if(Auth::attempt([
-                        'email' => $request->email,
-                        'password' => $request->password,
-                        'role' => function ($query) {
-                            $query->where('role','admin');
-                        }
-                    ]))
-                {
+                if (Auth::attempt([
+                    'email' => $request->email,
+                    'password' => $request->password,
+                    'role' => function ($query) {
+                        $query->where('role', 'admin');
+                    }
+                ])) {
                     return redirect()->route("admin.dashboard")->with("success", "Welcome to your dashboard.");
                 }
-                return back()->with("error","Invalid credentials");
-            }else{
-                return back()->with("error","Invalid credentials");
+                return back()->with("error", "Invalid credentials");
+            } else {
+                return back()->with("error", "Invalid credentials");
             }
-
-        }
-        catch(Exception $e){
-            return back()->with("error",$e->getMessage());
+        } catch (Exception $e) {
+            return back()->with("error", $e->getMessage());
         }
     }
 
@@ -89,7 +84,7 @@ class AdminAuthController extends Controller
         $data = $request->all();
         $check = $this->create($data);
 
-        return redirect("admin.dashboard")->with("success","Great! You have Successfully loggedin");
+        return redirect("admin.dashboard")->with("success", "Great! You have Successfully loggedin");
     }
 
     public function create(array $data)
@@ -108,7 +103,7 @@ class AdminAuthController extends Controller
 
     public function submitForgetPasswordForm(Request $request)
     {
-        try{
+        try {
             $request->validate([
                 "email" => "required|email|exists:users",
             ]);
@@ -122,42 +117,41 @@ class AdminAuthController extends Controller
             ]);
 
             $new_link_token = url("admin/reset-password/" . $token);
-            Mail::send("admin.email.forgot-password",["token" => $new_link_token, "email" => $request->email],
+            Mail::send(
+                "admin.email.forgot-password",
+                ["token" => $new_link_token, "email" => $request->email],
                 function ($message) use ($request) {
                     $message->to($request->email);
                     $message->subject("Reset Password");
                 }
             );
-            return redirect()->route("admin.login")->with("success","We have e-mailed your password reset link!");
+            return redirect()->route("admin.login")->with("success", "We have e-mailed your password reset link!");
+        } catch (Exception $e) {
+            return back()->with("error", $e->getMessage());
         }
-        catch(Exception $e){
-            return back()->with("error",$e->getMessage());
-        }
-
     }
 
     public function showResetPasswordForm($token)
     {
-        try{
+        try {
             $user = DB::table("password_resets")->where("token", $token)->first();
             $email = $user->email;
-            return view("admin.auth.reset-password", ["token" => $token,"email" => $email,]);
-        }
-        catch(Exception $e){
-            return back()->with("error",$e->getMessage());
+            return view("admin.auth.reset-password", ["token" => $token, "email" => $email,]);
+        } catch (Exception $e) {
+            return back()->with("error", $e->getMessage());
         }
     }
 
     public function submitResetPasswordForm(Request $request)
     {
-        try{
+        try {
             $request->validate([
                 "email" => "required|email|exists:users",
                 "password" => "required|string|min:6|confirmed",
                 "password_confirmation" => "required",
             ]);
 
-            $updatePassword = DB::table("password_resets")->where(["email" => $request->email,"token" => $request->token])->first();
+            $updatePassword = DB::table("password_resets")->where(["email" => $request->email, "token" => $request->token])->first();
 
             if (!$updatePassword) {
                 return back()->withInput()->with("error", "Invalid token!");
@@ -167,10 +161,9 @@ class AdminAuthController extends Controller
 
             DB::table("password_resets")->where(["email" => $request->email])->delete();
 
-            return redirect()->route("admin.login")->with("success","Your password has been changed successfully!");
-        }
-        catch(Exception $e){
-            return back()->with("error",$e->getMessage());
+            return redirect()->route("admin.login")->with("success", "Your password has been changed successfully!");
+        } catch (Exception $e) {
+            return back()->with("error", $e->getMessage());
         }
     }
 
@@ -181,7 +174,7 @@ class AdminAuthController extends Controller
 
     public function updatePassword(Request $request)
     {
-        try{
+        try {
             $request->validate([
                 "old_password" => "required",
                 "new_password" => "required|confirmed",
@@ -195,9 +188,8 @@ class AdminAuthController extends Controller
                 "password" => Hash::make($request->new_password),
             ]);
             return back()->with("success", "Password changed successfully!");
-        }
-        catch(Exception $e){
-            return back()->with("error",$e->getMessage());
+        } catch (Exception $e) {
+            return back()->with("error", $e->getMessage());
         }
     }
 
@@ -205,47 +197,43 @@ class AdminAuthController extends Controller
 
     public function logout()
     {
-        try{
+        try {
             Session::flush();
             Auth::logout();
             return redirect()->route("admin.login")->withSuccess('Logout Successful!');
-        }
-        catch(Exception $e){
-            return back()->with("error",$e->getMessage());
+        } catch (Exception $e) {
+            return back()->with("error", $e->getMessage());
         }
     }
 
     public function adminProfile()
     {
-        try{
+        try {
             $user = Auth::user();
             return view("admin.auth.profile", compact("user"));
-
-        }
-        catch(Exception $e){
-            return back()->with("error",$e->getMessage());
+        } catch (Exception $e) {
+            return back()->with("error", $e->getMessage());
         }
     }
 
     public function updateAdminProfile(Request $request)
     {
-        try
-        {
+        try {
             $user = Auth::user();
             $data = $request->all();
-            $validator = Validator::make($data,[
+            $validator = Validator::make($data, [
                 "first_name" => "required",
                 "last_name" => "required",
-                "phone" => "required|min:9|unique:users,phone," .$user->id,
+                "phone" => "required|min:9|unique:users,phone," . $user->id,
                 "email" => "required|email|unique:users,email," . $user->id,
                 "avatar" => "sometimes|image|mimes:jpeg,jpg,png|max:5000"
             ]);
 
-            if($validator->fails()) {
+            if ($validator->fails()) {
                 return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
             }
 
-            if($request->file("avatar")) {
+            if ($request->file("avatar")) {
                 $file = $request->file("avatar");
                 $filename = time() . $file->getClientOriginalName();
                 $folder = "uploads/user/";
@@ -263,8 +251,7 @@ class AdminAuthController extends Controller
             $user->email = $request->email;
             $user->save();
             return redirect()->back()->with("success", "Profile update successfully!");
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return redirect()->back()->with("error", $e->getMessage());
         }
     }
@@ -272,19 +259,63 @@ class AdminAuthController extends Controller
     public function adminDashboard()
     {
         $TotalSlots = Slot::count();
-        $TotalBooking = Booking::where('status','confirmed')->count();
+        $TotalBooking = Booking::where('status', 'confirmed')->count();
         $TotalUser = User::count();
         $Recentusers = User::where('role', '!=', 'admin')->latest()->take(6)->get();
+        $Recentslots = Slot::latest()->take(6)->get();
         $TotalActiveSlots = Slot::whereDoesntHave('bookingSlot')
-        ->where(function ($query) {
-            $query->where('slot_date', '>', Carbon::today())
-                  ->orWhere(function ($q) {
-                      $q->where('slot_date', Carbon::today())
-                        ->where('end_time', '>', Carbon::now()->format('H:i:s'));
-                  });
-        })->count();
-        return view("admin.dashboard.index",compact('TotalSlots','TotalBooking','TotalUser','TotalActiveSlots','Recentusers'));
+            ->where(function ($query) {
+                $query->where('slot_date', '>', Carbon::today())
+                    ->orWhere(function ($q) {
+                        $q->where('slot_date', Carbon::today())
+                            ->where('end_time', '>', Carbon::now()->format('H:i:s'));
+                    });
+            })->count();
+        return view("admin.dashboard.index", compact('TotalSlots', 'TotalBooking', 'TotalUser', 'TotalActiveSlots', 'Recentusers', 'Recentslots'));
     }
 
+    public function UserChartData(Request $request)
+    {
+        $year = $request->input('year', now()->year);
 
+        $monthlyUsers = DB::table('users')
+            ->select(DB::raw('MONTH(created_at) as month'), DB::raw('COUNT(*) as total'))
+            ->whereYear('created_at', $year)
+            ->groupBy(DB::raw('MONTH(created_at)'))
+            ->orderBy('month')
+            ->pluck('total', 'month');
+
+        $usersData = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $usersData[] = $monthlyUsers[$i] ?? 0;
+        }
+
+        return response()->json([
+            'data' => $usersData,
+            'year' => $year
+        ]);
+    }
+
+    public function BookingChartData(Request $request)
+    {
+        $year = $request->input('year', now()->year);
+
+        $monthlyBookings = DB::table('bookings')
+            ->select(DB::raw('MONTH(created_at) as month'), DB::raw('COUNT(*) as total'))
+            ->whereYear('created_at', $year)
+            ->where('status', 'confirmed')
+            ->groupBy(DB::raw('MONTH(created_at)'))
+            ->orderBy('month')
+            ->pluck('total', 'month');
+
+        $bookingsData = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $bookingsData[] = $monthlyBookings[$i] ?? 0;
+        }
+
+        return response()->json([
+            'data' => $bookingsData,
+            'year' => $year
+        ]);
+    }
 }
