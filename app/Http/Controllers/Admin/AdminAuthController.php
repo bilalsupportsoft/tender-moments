@@ -258,11 +258,30 @@ class AdminAuthController extends Controller
 
     public function adminDashboard()
     {
+        $today = Carbon::today();
+
         $TotalSlots = Slot::count();
         $TotalBooking = Booking::where('status', 'confirmed')->count();
+
+        $TodayBooking = Booking::where('status', 'confirmed')
+        ->whereHas('slot', fn($q) => $q->whereDate('slot_date', $today))
+        ->count();
+
+        $UpcomingBooking = Booking::where('status', 'confirmed')
+        ->whereHas('slot', fn($q) => $q->whereDate('slot_date', '>', $today))
+        ->count();
+
+        $CompletedBooking = Booking::where('status', 'confirmed')
+        ->whereHas('slot', fn($q) => $q->whereDate('slot_date', '<', $today))
+        ->count();
+
+        $CancelledBooking = Booking::where('status', '0')->count();
+
         $TotalUser = User::count();
         $Recentusers = User::where('role', '!=', 'admin')->latest()->take(6)->get();
         $Recentslots = Slot::latest()->take(6)->get();
+        $RecentBookings = Booking::with(['user', 'slot'])->latest()->take(6)->get();
+        // echo '<pre>';print_r($RecentBookings->toArray());exit;
         $TotalActiveSlots = Slot::whereDoesntHave('bookingSlot')
             ->where(function ($query) {
                 $query->where('slot_date', '>', Carbon::today())
@@ -271,7 +290,7 @@ class AdminAuthController extends Controller
                             ->where('end_time', '>', Carbon::now()->format('H:i:s'));
                     });
             })->count();
-        return view("admin.dashboard.index", compact('TotalSlots', 'TotalBooking', 'TotalUser', 'TotalActiveSlots', 'Recentusers', 'Recentslots'));
+        return view("admin.dashboard.index", compact('RecentBookings','CompletedBooking','TodayBooking','UpcomingBooking','CancelledBooking','TotalSlots', 'TotalBooking', 'TotalUser', 'TotalActiveSlots', 'Recentusers', 'Recentslots'));
     }
 
     public function UserChartData(Request $request)

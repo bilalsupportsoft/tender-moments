@@ -5,7 +5,7 @@
                     <!-- Content -->
                     <div class="container-fluid flex-grow-1 container-p-y">
                         <div class="row">
-                            <div class="col-lg-12 mb-4 order-0">
+                            {{-- <div class="col-lg-12 mb-4 order-0">
                                 <div class="card">
                                     <div class="d-flex align-items-end row">
                                         <div class="col-sm-7">
@@ -15,23 +15,49 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-lg-12">
                                 <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-12 mb-4">
-                                        <div class="card">
+                                     <div class="col-lg-2 col-md-6 col-12 mb-4">
+                                        <div class="card text-white bg-info">
                                             <div class="card-body">
-                                                <h5 class="card-title">Total Users</h5>
-                                                <h3 class="card-title text-nowrap mb-1">{{ $TotalUser }}</h3>
+                                                <h5 class="card-title" style="color: white">Total Users</h5>
+                                                <h3 style="color: white">{{ $TotalUser }}</h3>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-12 mb-4">
-                                        <div class="card">
+                                    <div class="col-lg-2 col-md-6 col-12 mb-4">
+                                        <div class="card text-white bg-primary">
                                             <div class="card-body">
-                                                <h5 class="card-title">Total Slots</h5>
-                                                <h3 class="card-title text-nowrap mb-1">{{ number_format($TotalSlots) }}</h3>
+                                                <h5 class="card-title" style="color: white">Today Booking</h5>
+                                                <h3 style="color: white" >{{ $TodayBooking }}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-2 col-md-6 col-12 mb-4">
+                                        <div class="card text-white bg-warning">
+                                            <div class="card-body">
+                                                <h5 class="card-title" style="color: white">Upcoming Booking</h5>
+                                                <h3 style="color: white">{{ $UpcomingBooking }}</h3>
+                                            </div>
+                                        </div>
+                                    </div>                                  
+
+                                    <div class="col-lg-2 col-md-6 col-12 mb-4">
+                                        <div class="card text-white bg-danger">
+                                            <div class="card-body">
+                                                <h5 class="card-title" style="color: white">Cancelled Bookings</h5>
+                                                <h3 style="color: white">{{ $CancelledBooking }}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-6 col-12 mb-4">
+                                        <div class="card text-white bg-success">
+                                            <div class="card-body">
+                                                <h5 class="card-title" style="color: white">Completed Bookings</h5>
+                                                <h3 style="color: white">{{ $CompletedBooking }}</h3>
                                             </div>
                                         </div>
                                     </div>
@@ -45,7 +71,7 @@
                                                 <h5 class="card-title mb-0">Recent Users</h5>
                                             </div>
                                             <div class="col-xl-2 col-lg-2 text-end">
-                                                <a href="{{ route('admin.users.index') }}" class="btn btn-secondary btn-sm">View All</a>
+                                                <a href="{{ route('admin.users.index') }}" class="btn btn-primary btn-sm">View All</a>
                                             </div>
                                         </div>
                                         <br>
@@ -79,10 +105,10 @@
                                     <div class="card-body">
                                         <div class="row align-items-center">
                                             <div class="col-xl-10 col-lg-10">
-                                                <h5 class="card-title mb-0">Recent Slots</h5>
+                                                <h5 class="card-title mb-0">Recent Bookings</h5>
                                             </div>
                                             <div class="col-xl-2 col-lg-2 text-end">
-                                                <a href="{{ route('admin.slot.index') }}" class="btn btn-secondary btn-sm">View All</a>
+                                                <a href="{{ route('admin.slot.index') }}" class="btn btn-primary btn-sm">View All</a>
                                             </div>
                                         </div>
                                         <br>
@@ -90,20 +116,62 @@
                                             <table class="table table-bordered">
                                                 <thead>
                                                     <tr>
+                                                        <th>Name</th>
                                                         <th>Price</th>
                                                         <th>Slot Date</th>
                                                         <th>Start Time</th>
                                                         <th>End Time</th>
+                                                        <th>Status</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
 
-                                                    @foreach ($Recentslots as $Recentslot)
+                                                    @foreach ($RecentBookings as $RecentBooking)
+                                                        @php
+                                                            $slot = $RecentBooking->slot;
+                                                            $slotDate = \Carbon\Carbon::parse($slot->slot_date ?? null);
+                                                            $today = \Carbon\Carbon::today();
+                                                            $status = '';
+
+                                                            if ($RecentBooking->status == 0) {
+                                                                $status = 'Cancelled';
+                                                            } elseif ($RecentBooking->status === 'confirmed') {
+                                                                if ($slotDate->isToday()) {
+                                                                    $status = 'Today Booking';
+                                                                } elseif ($slotDate->isFuture()) {
+                                                                    $status = 'Upcoming';
+                                                                } elseif ($slotDate->isPast()) {
+                                                                    $status = 'Completed';
+                                                                }
+                                                            } else {
+                                                                $status = 'Not Booked';
+                                                            }
+                                                            // print_r($Recentslot->toArray());
+                                                        @endphp
                                                         <tr>
-                                                            <td>{{ $Recentslot->price }}</td>
-                                                            <td>{{ \Carbon\Carbon::parse($Recentslot->slot_date)->format('d-M-Y') }}</td>
-                                                            <td>{{ \Carbon\Carbon::parse($Recentslot->start_time)->format('h:i A') }}</td>
-                                                            <td>{{ \Carbon\Carbon::parse($Recentslot->end_time)->format('h:i A') }}</td>
+                                                            <td>{{ $RecentBooking->user->name }}</td>
+                                                            <td>{{ $RecentBooking->total_amount }}</td>
+                                                            <td>{{ \Carbon\Carbon::parse($slotDate)->format('d-M-Y') }}</td>
+                                                            <td>{{ \Carbon\Carbon::parse($RecentBooking->slot->start_time)->format('h:i A') }}</td>
+                                                            <td>{{ \Carbon\Carbon::parse($RecentBooking->slot->end_time)->format('h:i A') }}</td>
+                                                            <td>
+                                                                @switch($status)
+                                                                @case('Today Booking')
+                                                                    <span class="badge bg-info w-100">{{ $status }}</span>
+                                                                    @break
+                                                                @case('Upcoming')
+                                                                    <span class="badge bg-warning w-100">{{ $status }}</span>
+                                                                    @break
+                                                                @case('Cancelled')
+                                                                    <span class="badge bg-danger w-100">{{ $status }}</span>
+                                                                    @break
+                                                                @case('Completed')
+                                                                    <span class="badge bg-success w-100">{{ $status }}</span>
+                                                                    @break
+                                                                @default
+                                                                    <span class="badge bg-secondary w-100">{{ $status }}</span>
+                                                                @endswitch
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -114,17 +182,22 @@
                             </div>
                             <div class="col-xl-6 col-lg-6">
                                 <div class="container-fluid flex-grow-1 container-p-y">
-                                    <h5 class="card-title">Users</h5>
+                                    {{-- <h5 class="card-title">Users</h5> --}}
                                     <div class="row">
                                         <div class="card">
                                             <div class="card-body">
-                                                <div class="mb-3">
-                                                    <select id="orderYear" class="form-select w-auto">
+                                                <div class="row align-items-center">
+                                                    <div class="col-xl-10 col-lg-10">
+                                                        <h5 class="card-title mb-0">Users Traffic</h5>
+                                                    </div>
+                                                    <div class="col-xl-2 col-lg-2 text-end">
+                                                         <select id="orderYear" class="form-select w-auto">
                                                         @for ($y = now()->year; $y >= now()->year - 5; $y--)
                                                             <option value="{{ $y }}">{{ $y }}</option>
                                                         @endfor
                                                     </select>
-                                                </div>
+                                                    </div>
+                                                </div>                                                
                                                 <div class="col-12">
                                                     <div id="monthlyOrdersChart" style="height: 350px;"></div>
                                                 </div>
@@ -136,18 +209,22 @@
 
 
                             <div class="col-xl-6 col-lg-6">
-                                <div class="container-fluid flex-grow-1 container-p-y">
-                                    <h5 class="card-title">Booked Slots</h5>
+                                <div class="container-fluid flex-grow-1 container-p-y">                                    
                                     <div class="row">
                                         <div class="card">
                                             <div class="card-body">
-                                                <div class="mb-3">
-                                                    <select id="bookingYear" class="form-select w-auto">
-                                                        @for ($y = now()->year; $y >= now()->year - 5; $y--)
-                                                            <option value="{{ $y }}">{{ $y }}</option>
-                                                        @endfor
-                                                    </select>
-                                                </div>
+                                                <div class="row align-items-center">
+                                                    <div class="col-xl-10 col-lg-10">
+                                                        <h5 class="card-title mb-0">Booked Slots</h5>
+                                                    </div>
+                                                    <div class="col-xl-2 col-lg-2 text-end">
+                                                        <select id="bookingYear" class="form-select w-auto">
+                                                            @for ($y = now()->year; $y >= now()->year - 5; $y--)
+                                                                <option value="{{ $y }}">{{ $y }}</option>
+                                                            @endfor
+                                                        </select>
+                                                    </div>
+                                                </div>  
                                                 <div class="col-12">
                                                     <div id="monthlyBookingsChart" style="height: 350px;"></div>
                                                 </div>
@@ -155,29 +232,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            {{-- <div class="col-xl-6 col-lg-6">
-                                <div class="container-fluid flex-grow-1 container-p-y">
-                                    <h5 class="card-title"> Booked Slots</h5>
-                                    <div class="row">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="mb-3">
-                                                    <select id="bookingYear" class="form-select w-auto">
-                                                        @for ($y = now()->year; $y >= now()->year - 5; $y--)
-                                                            <option value="{{ $y }}">{{ $y }}</option>
-                                                        @endfor
-                                                    </select>
-                                                </div>
-                                                <div class="col-12">
-                                                   <div id="monthlyBookingsChart" style="height: 350px;"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
+                            </div>                           
                         </div>
                     </div>
 @endsection

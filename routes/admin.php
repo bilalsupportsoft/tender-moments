@@ -73,6 +73,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::delete("bookings/delete/{id}", [BookingController::class, 'destroy'])->name('destroy');
             Route::get('bookings/{id}/view', [BookingController::class, 'edit'])->name('edit');
             Route::post('/bookings/{id}/status', [BookingController::class, 'updateStatus'])->name('updateStatus');
+            Route::put('/bookings/cancel/{id}', [BookingController::class, 'cancelBooking'])->name('bookings.cancel');
 
         });
 

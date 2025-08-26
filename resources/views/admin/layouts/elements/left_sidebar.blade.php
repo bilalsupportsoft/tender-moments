@@ -75,8 +75,8 @@
 		<li class="menu-item {{ request()->is('admin/page*') ? 'active open' : ''}}">
 			<a href="javascript:void(0);" class="menu-link menu-toggle">
 				<i class="menu-icon tf-icons bx bx-book-content"></i>
-				<div data-i18n="Pages">Pages</div>
-				<div class="badge bg-danger rounded-pill ms-auto">{{count($pages)}}</div>
+				<div data-i18n="Pages">Website Pages</div>
+				{{-- <div class="badge bg-danger rounded-pill ms-auto">{{count($pages)}}</div> --}}
 			</a>
 			<ul class="menu-sub">
 				@foreach($pages as $page)

@@ -3,11 +3,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&amp;family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap");
 :root {
   --color-page: #010A10;
-  --color-primary: #139bfd;
+  --color-primary: #fd5d13;
   --color-primary-alt: #13fdfd;
   --color-primary-2nd: #FF494A;
   --color-primary-3rd: #FDC448;
-  --color-primary-4th: #0071ff;
+  --color-primary-4th: #fd5d13;
   --color-secondary: #010a10;
   --color-white:#ffffff;
   --color-gray: #bebebe;
