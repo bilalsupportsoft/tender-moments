@@ -68,7 +68,7 @@
                                     <div class="card-body">
                                         <div class="row align-items-center">
                                             <div class="col-xl-10 col-lg-10">
-                                                <h5 class="card-title mb-0">Recent Users</h5>
+                                                <h5 class="card-title mb-0">Sign-in Recent Users</h5>
                                             </div>
                                             <div class="col-xl-2 col-lg-2 text-end">
                                                 <a href="{{ route('admin.users.index') }}" class="btn btn-primary btn-sm">View All</a>

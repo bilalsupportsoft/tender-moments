@@ -280,7 +280,7 @@ class AdminAuthController extends Controller
         $TotalUser = User::count();
         $Recentusers = User::where('role', '!=', 'admin')->latest()->take(6)->get();
         $Recentslots = Slot::latest()->take(6)->get();
-        $RecentBookings = Booking::with(['user', 'slot'])->latest()->take(6)->get();
+        $RecentBookings = Booking::with(['user', 'slot'])->where('status','!=', 'pending')->latest()->take(6)->get();
         // echo '<pre>';print_r($RecentBookings->toArray());exit;
         $TotalActiveSlots = Slot::whereDoesntHave('bookingSlot')
             ->where(function ($query) {

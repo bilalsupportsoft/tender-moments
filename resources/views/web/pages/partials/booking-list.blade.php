@@ -79,7 +79,7 @@
                                 $slotDateTime = \Carbon\Carbon::parse($booking->slot_date . ' ' . $booking->start_time);
                                 $slotEndTime = \Carbon\Carbon::parse($booking->slot_date . ' ' . $booking->end_time);
 
-                                if ($booking->status === 'cancelled') {
+                                if ($booking->status === '0') {
                                     $displayStatus = 'Cancelled';
                                     $cssClass = 'cancel-bookingbtn';
                                 } elseif ($booking->status === 'pending') {

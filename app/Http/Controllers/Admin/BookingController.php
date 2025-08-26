@@ -48,7 +48,7 @@ class BookingController extends Controller
 
     public function index(Request $request)
     {
-        $query = Booking::with(['user', 'slot']);
+        $query = Booking::with(['user', 'slot'])->where('status', '!=', 'pending');
 
         // Date filter
         if ($request->filled('slot_date')) {

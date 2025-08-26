@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <select name="status" class="form-select" onchange="this.form.submit()">
-                        <option value="">All Status</option>
+                        <option value="">Show All</option>
                         <option value="Booked" {{ request('status') == 'Booked' ? 'selected' : '' }}>Today Booking</option>
                         <option value="1" {{ request('status') == '1' ? 'selected' : '' }}>Upcoming</option>
                         <option value="0" {{ request('status') == '0' ? 'selected' : '' }}>Cancelled</option>
@@ -86,7 +86,7 @@
                                         <td>{{ $bookingslot->user->name ?? '-' }}</td>
                                         <td>{{ $bookingslot->user->email ?? '-' }}</td>
                                         <td>{{ $bookingslot->user->phone ?? '-' }}</td>
-                                        <td>${{ $bookingslot->price }}</td>
+                                        <td>${{ $bookingslot->total_amount }}</td>
                                         <td>{{ $slotDate->format('d-M-Y') }}</td>
                                         <td>{{ \Carbon\Carbon::parse($slot->start_time)->format('h:i A') }}</td>
                                         <td>{{ \Carbon\Carbon::parse($slot->end_time)->format('h:i A') }}</td>
@@ -110,8 +110,8 @@
                                         </td>
                                         <td>
                                             @if ($status === 'Today Booking' || $status === 'Upcoming')
-                                                <a href="{{ route('admin.users.show', $bookingslot->user->id) }}"
-                                                    class="btn btn-sm btn-primary mb-1">User</a>
+                                                {{-- <a href="{{ route('admin.users.show', $bookingslot->user->id) }}"
+                                                    class="btn btn-sm btn-primary mb-1">User</a> --}}
 
                                                 <a href="javascript:void(0);"
                                                     onclick="cancelBooking('{{ $bookingslot->id }}')"
