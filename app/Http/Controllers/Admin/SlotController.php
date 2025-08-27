@@ -40,11 +40,12 @@ class SlotController extends Controller
 
     public function store(Request $request)
     {
+        // echo '<pre>';print_r($request->all());exit;
         $request->validate([
             'price' => 'required',
             'slot_date' => 'required',
-            'start_time' => 'required',
-            'end_time' => 'required',
+            // 'start_time' => 'required',
+            // 'end_time' => 'required',
         ]);
 
         $slot_date = Carbon::createFromFormat('d-m-Y', $request->slot_date)->format('Y-m-d');
@@ -64,8 +65,8 @@ class SlotController extends Controller
                         Slot::create([
                             'price'      => $request->price,
                             'slot_date'  => $slot_date,
-                            'start_time' => $slotStart,
-                            'end_time'   => $slotEnd,
+                            'start_time' => $slotStart ?? "10:00 AM",
+                            'end_time'   => $slotEnd ?? "05:00 PM",
                         ]);
                     }
                 }
