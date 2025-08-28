@@ -6,9 +6,9 @@
         <div class="booking-flow-web">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-9 mx-auto">
+                    <div class="col-md-12 mx-auto">
                         <div class="d-flex justify-content-between">
-                            <div class="heing-sing">
+                            <div class="heing-sing" style="width: -webkit-fill-available;">
                                 <div class="mybookinginfo">
                                     <h3> <img src="assets/web/list-of-icon.png" alt="" width="60"> My Booking
                                     </h3>

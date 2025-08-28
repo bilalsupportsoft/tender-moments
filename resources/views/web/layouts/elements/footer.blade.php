@@ -36,6 +36,74 @@
     border: none;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
+.popup-overlay {
+  overflow-y: auto;
+}
+
+/* New css */
+
+/* Mobile Responsive */
+/* Ensure .register-infotech stacks in column on small screens */
+@media (max-width: 768px) {
+
+    .popup-box {
+        width: 100%;
+        max-width: 400px;
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        max-height: 90vh; /* important */
+        overflow-y: auto; /* scroll inside popup */
+        }
+
+  .register-infotech {
+    flex-direction: column !important;
+    align-items: center;
+  }
+
+  .bg-ragi-info {
+    width: 100%;
+  }
+
+  .bg-ragi-info .booking-info img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  .right-info-rights {
+    width: 100%;
+    padding-top: 15px;
+  }
+
+  .slot-booking-box li {
+    flex: 1 1 100%;
+  }
+
+  .slot-booking-box button {
+    width: 100%;
+  }
+
+  .ui.input.left.icon {
+    width: 100%;
+  }
+
+  .check-availability-btn {
+    text-align: center;
+  }
+
+  #continueBtn {
+    width: 100%;
+  }
+}
+
 </style>
 <div class="footer-stars-animation-wrapper-footer">
     <!-- Start Footer Area  -->

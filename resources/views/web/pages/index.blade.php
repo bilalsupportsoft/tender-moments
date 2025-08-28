@@ -5,8 +5,10 @@
     <div id="age-popup">
         <div class="popup-box">
             <h2 style="font-size:24px; color:#000;">Are you 18 years old or above?</h2>
-            <button class="yes-btn" onClick="closePopup()">Yes, I am 18+</button>
-            <button class="no-btn" onClick="stayOnPopup()">No</button>
+            <div class="btn-group">
+                <button class="yes-btn" onClick="closePopup()">Yes, I am 18+</button>
+                <button class="no-btn" onClick="stayOnPopup()">No</button>
+            </div>
         </div>
     </div>
     @endguest

@@ -31024,3 +31024,32 @@ ul.slot-booking-box li {
 }
 
 }
+
+
+@media (max-width: 768px) {
+  .btn-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .btn-group .yes-btn,
+  .btn-group .no-btn {
+    flex: 1;
+    width: auto !important;
+    margin: 0 !important;
+  }
+}
+
+.btn-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .btn-group .yes-btn,
+  .btn-group .no-btn {
+    flex: 1;
+    width: auto !important;
+    margin: 0 !important;
+  }

@@ -22,7 +22,7 @@
                         <div class="tmp-header-right">
                             <!-- Profile menu or Sign Up button -->
                             @if(Auth::check())
-                            <div class="profile-infobeluser d-none d-xl-block">
+                            <div class="profile-infobeluser d-xl-block">
                                 <div class="profile-menu" onClick="toggleDropdown()">
                                     <img src="{{ Auth::user()->avatar ? asset(Auth::user()->avatar) : asset('assets/web/images/no-user.jpg') }}" class="profile-pic" alt="User">
                                     <span class="user-name">{{ Auth::user()->name ?? 'Guest' }}</span>
