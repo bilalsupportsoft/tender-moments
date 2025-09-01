@@ -57,7 +57,15 @@
                                     width="60"></div>
                             <div class="date-and-info">
                                 <h4>Booking Price</h4>
-                                <p><strong>${{ $slot->price }}</strong></p>
+                                <p>
+                                    <strong>
+                                        @if($residency === 'australian')
+                                            ${{ number_format($slot->price * 1.10, 2) }}
+                                        @else
+                                            ${{ number_format($slot->price, 2) }}
+                                        @endif
+                                    </strong>
+                                </p>
                             </div>
                         </div>
                     </div>

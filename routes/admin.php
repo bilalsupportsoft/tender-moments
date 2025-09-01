@@ -74,6 +74,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
             Route::get('bookings/{id}/view', [BookingController::class, 'edit'])->name('edit');
             Route::post('/bookings/{id}/status', [BookingController::class, 'updateStatus'])->name('updateStatus');
             Route::put('/bookings/cancel/{id}', [BookingController::class, 'cancelBooking'])->name('bookings.cancel');
+            Route::get('/download-invoice/{id}', [BookingController::class, 'downloadInvoice'])->name('download.invoice');
 
         });
 

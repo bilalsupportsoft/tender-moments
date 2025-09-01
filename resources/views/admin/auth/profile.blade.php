@@ -7,9 +7,9 @@
     border:1px dotted lightgray;
     padding:4px;
     margin: 0 auto;
- }  
+ }
 </style>
-@endsection 
+@endsection
 @section('content')
 <div class="container-fluid flex-grow-1 container-p-y">
     <h5 class="py-2 mb-2">
@@ -24,14 +24,14 @@
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label">First Name*</label>
-                                    <input type="text" id="" name="first_name" class="form-control" placeholder="Enter First Name" value="{{old('first_name',$user->first_name)}}" required>
-                                    @error('first_name')
+                                    <label class="form-label">Name*</label>
+                                    <input type="text" id="" name="name" class="form-control" placeholder="Enter Name" value="{{old('name',$user->name)}}" required>
+                                    @error('name')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Last Name*</label>
                                     <input type="text" name="last_name" class="form-control" placeholder="Enter Last Name" value="{{ old('last_name',$user->last_name)}}" required>
@@ -39,7 +39,7 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Phone Number*</label>
@@ -65,7 +65,7 @@
                                     <div class="input-group">
                                         <input type="file" name="avatar" accept="image/*" class="form-control" id="avatar" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onchange="document.getElementById('user-image').src = window.URL.createObjectURL(this.files[0])">
                                     </div>
-                    
+
                                     @error('avatar')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -79,10 +79,10 @@
                                 @endif
                             </div>
                         </div>
-                       
+
                         <div class="pt-4">
                             <div class="col-md-12 submit-btn">
-                                <button type="submit" class="btn btn-primary">Save</button> 
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </div>
                     </form>
@@ -98,5 +98,5 @@
     $(".timezone").select2().on('select2:opening', function(e) {
         $(this).data('select2').$dropdown.find(':input.select2-search__field').attr('placeholder', 'Search your timezone')
     })
-</script> 
+</script>
 @endsection

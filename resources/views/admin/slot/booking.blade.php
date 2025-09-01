@@ -56,6 +56,7 @@
                                     <th>Slot Time End</th>
                                     <th>Status</th>
                                     <th>Action</th>
+                                    <th>Invoice</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -130,7 +131,12 @@
                                             @else
                                                 <span class="text-muted">No action</span>
                                             @endif
+
+
                                         </td>
+                                        <td><a href="{{ route('admin.bookings.download.invoice', $bookingslot->id) }}">
+                                            <img src="{{ asset('assets/web/bill.png') }}" alt="" width="32">Download Invoice
+                                        </a></td>
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -1,9 +1,10 @@
+
 <!doctype html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8" />
-    <title>Invoice #{{ $invoice['slot_id'] ?? ($invoice->slot_id ?? 'N/A') }}</title>
+    <title>Invoicesss #{{ $invoice['invoice_no'] }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
         @page {
@@ -222,35 +223,28 @@
         }
     </style>
 </head>
-
 <body>
-    <!-- Decorative shapes -->
     <div class="left-shape"></div>
     <div class="right-shape"></div>
-    <div class="triangle-top"></div>
-
 
     <div class="inv-header">
         <div>
             <div class="inv-title">INVOICE</div>
         </div>
-
         <div class="company-block">
             <img src="{{ public_path('assets/admin/img/logo.png') }}" alt="Tender Moments Logo"
-            style="width:130px;">
+             style="width:130px;">
             <div style="margin-top:8px;">ABN: 52 114 429 886</div>
-            <div style="margin-top:6px;">Contact:
-                {{ $invoice['business_email'] ?? ($invoice->business_email ?? 'info@tendermoments.com') }}</div>
+            <div style="margin-top:6px;">Contact: {{ $invoice['business_email'] }}</div>
             <div style="margin-top:6px;">Service provided: Sensual Energy Session</div>
         </div>
     </div>
-
     <div class="head-rows">
         <div class="client box">
             <h4>Issued To</h4>
-            <p><strong>{{ $invoice['user']['name'] ?? ($invoice->user->name ?? 'Client Name') }}</strong></p>
-            @if (!empty($invoice['user']['email'] ?? ($invoice->user->email ?? null)))
-                <p>{{ $invoice['user']['email'] ?? $invoice->user->email }}</p>
+            <p><strong>{{ $invoice['user']['name'] }}</strong></p>
+            @if ($invoice['user']['email'])
+                <p>{{ $invoice['user']['email'] }}</p>
             @endif
             <p style="margin-top:10px; font-size:12px; color:#777;">
                 Residency: <strong>{{ $invoice['residency'] }}</strong>
@@ -259,23 +253,15 @@
 
         <div class="invoice-info box">
             <h4>Invoice Details</h4>
-            <p>Invoice #:
-                <strong>{{ $invoice['invoice_no'] ?? ($invoice->invoice_no ?? 'INV-' . ($invoice['slot_id'] ?? ($invoice->slot_id ?? '0'))) }}</strong>
-            </p>
-            <p>Slot ID: <strong>{{ $invoice['slot_id'] ?? ($invoice->slot_id ?? 'N/A') }}</strong></p>
-            <p>Date of Session:
-                <strong>{{ \Carbon\Carbon::parse($invoice['slot_date'] ?? ($invoice->slot_date ?? now()))->format('d M Y') }}</strong>
-            </p>
-            <p>Time: <strong>{{ \Carbon\Carbon::parse($invoice['start_time'] ?? ($invoice->start_time ?? '00:00'))->format('h:i A') }}
-                    -
-                    {{ \Carbon\Carbon::parse($invoice['end_time'] ?? ($invoice->end_time ?? '00:00'))->format('h:i A') }}</strong>
-            </p>
-            <p>Status: <strong>{{ ucfirst($invoice['status'] ?? ($invoice->status ?? 'N/A')) }}</strong></p>
+            <p>Invoice #: <strong>{{ $invoice['invoice_no'] }}</strong></p>
+            <p>Slot ID: <strong>{{ $invoice['slot_id'] }}</strong></p>
+            <p>Date of Session: <strong>{{ \Carbon\Carbon::parse($invoice['slot_date'])->format('d M Y') }}</strong></p>
+            <p>Time: <strong>{{ \Carbon\Carbon::parse($invoice['start_time'])->format('h:i A') }} -
+                    {{ \Carbon\Carbon::parse($invoice['end_time'])->format('h:i A') }}</strong></p>
+            <p>Status: <strong>{{ ucfirst($invoice['status']) }}</strong></p>
         </div>
     </div>
-
-    <!-- Items table -->
-    <table class="items" role="table">
+    <table class="items">
         <thead>
             <tr>
                 <th>No</th>
@@ -288,17 +274,11 @@
         <tbody>
             <tr>
                 <td>1</td>
-                <td>
-                    Sensual Energy Session<br>
-                </td>
-                <td>{{ \Carbon\Carbon::parse($invoice['slot_date'] ?? ($invoice->slot_date ?? now()))->format('d M Y') }}
-                </td>
-                <td>
-                        {{ \Carbon\Carbon::parse($invoice['start_time'] ?? ($invoice->start_time ?? '00:00'))->format('h:i A') }}
-                        -
-                        {{ \Carbon\Carbon::parse($invoice['end_time'] ?? ($invoice->end_time ?? '00:00'))->format('h:i A') }}
-                </td>
-                <td class="value"> ${{ number_format($invoice['total'], 2) }}</td>
+                <td>Sensual Energy Session</td>
+                <td>{{ \Carbon\Carbon::parse($invoice['slot_date'])->format('d M Y') }}</td>
+                <td>{{ \Carbon\Carbon::parse($invoice['start_time'])->format('h:i A') }} -
+                    {{ \Carbon\Carbon::parse($invoice['end_time'])->format('h:i A') }}</td>
+                <td class="value">${{ number_format($invoice['total'], 2) }}</td>
             </tr>
         </tbody>
     </table>
@@ -309,12 +289,11 @@
             included)</p>
         <p><strong>For Non-Australian residents:</strong> ${{ number_format($invoice['price'], 2) }} (No GST)</p>
     </div>
+
     <div class="signature">
-        <div class="signed-name">{{ $invoice['user']['name'] ?? 'Client Name' }}</div>
+        <div class="signed-name">{{ $invoice['user']['name'] }}</div>
         <div class="sig-line">Authorized Signature</div>
     </div>
-    </div>
-    <div style="clear:both;"></div>
 </body>
 
 </html>

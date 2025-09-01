@@ -24,7 +24,7 @@
                                             <option value="active">Active Booking</option>
                                             <option value="upcoming">Upcoming Booking</option>
                                             <option value="completed">Completed Booking</option>
-                                            <option value="cancelled">Cancelled Booking</option>
+                                            <option value="0">Cancelled Booking</option>
                                         </select>
                                     </div>
                                 </div>

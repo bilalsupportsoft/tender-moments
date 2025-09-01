@@ -566,9 +566,13 @@ body.modal-open {
                         .addClass('text-success')
                         .text('Login successful!')
                         .show();
-                    setTimeout(function() {
-                        window.location.href = response.redirect_url ?? "/dashboard";
-                    }, 1000);
+                        if (response.success === true) {
+                    sessionStorage.setItem("openVerifiedPopup", "true");
+                    location.reload();
+                }
+                    // setTimeout(function() {
+                    //     window.location.href = response.redirect_url ?? "/dashboard";
+                    // }, 1000);
                 } else {
                     $('#login-message')
                         .removeClass('text-success')
