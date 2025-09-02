@@ -18,7 +18,7 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Residency</th>
-                                    <th>Slots</th>
+                                    <th>Details</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -21,44 +21,54 @@
                                 <div class="row">
                                      <div class="col-lg-2 col-md-6 col-12 mb-4">
                                         <div class="card text-white bg-info">
+                                            <a href="{{ route('admin.users.index') }}">
                                             <div class="card-body">
                                                 <h5 class="card-title" style="color: white">Total Users</h5>
                                                 <h3 style="color: white">{{ $TotalUser }}</h3>
                                             </div>
+                                        </a>
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-6 col-12 mb-4">
                                         <div class="card text-white bg-primary">
+                                            <a href="{{ route('admin.bookings.index', ['status' => 'Booked']) }}">
                                             <div class="card-body">
                                                 <h5 class="card-title" style="color: white">Today Booking</h5>
                                                 <h3 style="color: white" >{{ $TodayBooking }}</h3>
                                             </div>
+                                        </a>
                                         </div>
                                     </div>
 
                                     <div class="col-lg-2 col-md-6 col-12 mb-4">
                                         <div class="card text-white bg-warning">
+                                            <a href="{{ route('admin.bookings.index',['status' => '1']) }}">
                                             <div class="card-body">
                                                 <h5 class="card-title" style="color: white">Upcoming Booking</h5>
                                                 <h3 style="color: white">{{ $UpcomingBooking }}</h3>
                                             </div>
+                                        </a>
                                         </div>
-                                    </div>                                  
+                                    </div>
 
                                     <div class="col-lg-2 col-md-6 col-12 mb-4">
                                         <div class="card text-white bg-danger">
+                                            <a href="{{ route('admin.bookings.index',['status' => '0']) }}">
                                             <div class="card-body">
                                                 <h5 class="card-title" style="color: white">Cancelled Bookings</h5>
                                                 <h3 style="color: white">{{ $CancelledBooking }}</h3>
                                             </div>
+                                        </a>
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-6 col-12 mb-4">
                                         <div class="card text-white bg-success">
+                                            <a href="{{ route('admin.bookings.index', ['status' => 'Completed']) }}">
                                             <div class="card-body">
                                                 <h5 class="card-title" style="color: white">Completed Bookings</h5>
                                                 <h3 style="color: white">{{ $CompletedBooking }}</h3>
                                             </div>
+                                        </a>
                                         </div>
                                     </div>
                                 </div>
@@ -108,7 +118,7 @@
                                                 <h5 class="card-title mb-0">Recent Bookings</h5>
                                             </div>
                                             <div class="col-xl-2 col-lg-2 text-end">
-                                                <a href="{{ route('admin.slot.index') }}" class="btn btn-primary btn-sm">View All</a>
+                                                <a href="{{ route('admin.bookings.index') }}" class="btn btn-primary btn-sm">View All</a>
                                             </div>
                                         </div>
                                         <br>
@@ -197,7 +207,7 @@
                                                         @endfor
                                                     </select>
                                                     </div>
-                                                </div>                                                
+                                                </div>
                                                 <div class="col-12">
                                                     <div id="monthlyOrdersChart" style="height: 350px;"></div>
                                                 </div>
@@ -209,7 +219,7 @@
 
 
                             <div class="col-xl-6 col-lg-6">
-                                <div class="container-fluid flex-grow-1 container-p-y">                                    
+                                <div class="container-fluid flex-grow-1 container-p-y">
                                     <div class="row">
                                         <div class="card">
                                             <div class="card-body">
@@ -224,7 +234,7 @@
                                                             @endfor
                                                         </select>
                                                     </div>
-                                                </div>  
+                                                </div>
                                                 <div class="col-12">
                                                     <div id="monthlyBookingsChart" style="height: 350px;"></div>
                                                 </div>
@@ -232,7 +242,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>                           
+                            </div>
                         </div>
                     </div>
 @endsection

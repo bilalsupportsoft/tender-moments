@@ -70,7 +70,7 @@ header.header--sticky.header--transparent {
     z-index: 999;
 }
 </style>
-<body class="spybody" data-spy="scroll" data-bs-target=".navbar-example2" data-offset="150">
+<body class="spybody">
 
 
     @include('web.layouts.elements.header')

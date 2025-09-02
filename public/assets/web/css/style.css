@@ -104,7 +104,7 @@ html {
   margin: 0;
   padding: 0;
   font-size: 10px;
-  scroll-behavior: auto !important;
+
 }
 
 body {
@@ -116,7 +116,7 @@ body {
     color: var(--color-body);
     font-weight: var(--p-regular);
     position: relative;
-    overflow-x: hidden;
+
     background: #1f012b;
 }
 
@@ -30152,16 +30152,9 @@ p.hello-title {
       background-color: #0056b3;
     }
 
-body.noscroll2 *,
-html.noscroll2 * {
-  overscroll-behavior: none;
-  touch-action: none;
-}
 
-html.noscroll2, body.noscroll2 {
-  overflow: hidden;
-  height: 100vh;
-}
+
+
 
 .register-infotech{width:100%; float:left; margin:0px; padding:0px;}
 .bg-ragi-info {
@@ -30987,6 +30980,9 @@ ul.slot-booking-box li {
 .booking-avalable-data {
     padding: 70px 0 0 0;
 }
+.width-mysetviews {
+    width: 250px!important;
+}
 
 @media only screen and (min-width : 320px) and (max-width : 400px) {
 
@@ -30999,6 +30995,61 @@ ul.slot-booking-box li {
     margin:0 auto;
 }
 
+.tmp-section-gap {
+    padding: 10px 0 50px 0;
+}
+.popup-box button {
+  font-size: 15px!important;
+
+}
+.tmp-section-gap-info {
+    padding: 0px 0px 60px 0px!important;
+}
+
+.banner-right-thumbnail-area {
+    background-position: 70% center!important;
+    background-size: cover;
+}
+
+/***Pupup-css***/
+.signin-height {
+    min-height: 250px!important;
+    background-position: 100% 30%;
+    background-size: 100%;
+}
+.custom-popup-box {
+ width: 90%;
+}
+
+#custom-popup {
+ height: auto!important;
+   top: 40px;
+
+
+}
+
+.bg-ragi-info {
+ min-height: 150px !important;
+height: 150px !important;
+    background-size: cover!important;
+    background-position: unset!important;
+    border-radius: 10px!important;
+}
+
+.bg-ragi-info.signup-height {
+    min-height: 150px !important;
+    height: 150px !important;
+    background-size: cover!important;
+    background-position: unset!important;
+}
+
+.right-info-rights {
+   max-height: 400px;
+    overflow-y: scroll;
+}
+ul.slot-booking-box {
+ text-align: center;
+}
 
 
 }
@@ -31014,6 +31065,21 @@ ul.slot-booking-box li {
     margin:0 auto;
 }
 
+.tmp-section-gap {
+    padding: 10px 0 50px 0;
+}
+.popup-box button {
+  font-size: 15px!important;
+
+}
+.tmp-section-gap-info {
+    padding: 0px 0px 60px 0px!important;
+}
+
+.banner-right-thumbnail-area {
+    background-position: 70% center!important;
+    background-size: cover;
+}
 
 }
 
@@ -31022,6 +31088,22 @@ ul.slot-booking-box li {
 .info-bell-timothy {
     padding: 70px 0 0 10px;
 }
+.tmp-section-gap {
+    padding: 10px 0 50px 0;
+}
+.popup-box button {
+  font-size: 15px!important;
+
+}
+.tmp-section-gap-info {
+    padding: 0px 0px 60px 0px!important;
+}
+
+.banner-right-thumbnail-area {
+    background-position: 70% center!important;
+    background-size: cover;
+}
+
 
 }
 
@@ -31039,6 +31121,22 @@ ul.slot-booking-box li {
     width: auto !important;
     margin: 0 !important;
   }
+  .tmp-section-gap {
+    padding: 10px 0 50px 0;
+}
+.popup-box button {
+  font-size: 15px!important;
+
+}
+.tmp-section-gap-info {
+    padding: 0px 0px 60px 0px!important;
+}
+
+.banner-right-thumbnail-area {
+    background-position: 70% center!important;
+    background-size: cover;
+}
+
 }
 
 .btn-group {
@@ -31052,4 +31150,74 @@ ul.slot-booking-box li {
     flex: 1;
     width: auto !important;
     margin: 0 !important;
+  }
+
+
+
+  @media only screen and (min-width : 768px) and (max-width : 991px) {
+
+  .tmp-section-gap {
+    padding: 10px 0 50px 0;
+}
+.popup-box button {
+  font-size: 15px!important;
+
+}
+.tmp-section-gap-info {
+    padding: 0px 0px 60px 0px!important;
+}
+
+.banner-right-thumbnail-area {
+    background-position: 70% center!important;
+    background-size: cover;
+}
+
+
+
+  }
+
+
+    @media only screen and (min-width : 992px) and (max-width : 1140px) {
+
+.tmp-section-gap {
+        padding: 40px 0 120px 0;
+    }
+.popup-box button {
+  font-size: 15px!important;
+
+}
+.tmp-section-gap-info {
+    padding: 0px 0px 60px 0px!important;
+}
+
+.banner-right-thumbnail-area {
+    background-position: 70% center!important;
+    background-size: cover;
+}
+
+
+
+  }
+
+
+    @media only screen and (min-width : 1141px) and (max-width : 1366px) {
+
+.tmp-section-gap {
+        padding: 150px 0 120px 0;
+    }
+.popup-box button {
+  font-size: 15px!important;
+
+}
+.tmp-section-gap-info {
+    padding: 60px 0px 60px 0px!important;
+}
+
+.banner-right-thumbnail-area {
+    background-position: 70% center!important;
+    background-size: cover;
+}
+
+
+
   }

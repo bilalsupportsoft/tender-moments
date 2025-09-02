@@ -49,7 +49,6 @@
                                     <th>Sr. No.</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Mobile No.</th>
                                     <th>Price</th>
                                     <th>Slot Date</th>
                                     <th>Slot Time Start</th>
@@ -86,7 +85,6 @@
                                         <td>{{ ++$key }}</td>
                                         <td>{{ $bookingslot->user->name ?? '-' }}</td>
                                         <td>{{ $bookingslot->user->email ?? '-' }}</td>
-                                        <td>{{ $bookingslot->user->phone ?? '-' }}</td>
                                         <td>${{ $bookingslot->total_amount }}</td>
                                         <td>{{ $slotDate->format('d-M-Y') }}</td>
                                         <td>{{ \Carbon\Carbon::parse($slot->start_time)->format('h:i A') }}</td>
