@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 
@@ -187,13 +186,21 @@
         }
 
         .signature {
+            margin-top: 50px;
             text-align: right;
             font-size: 13px;
         }
 
+        .signed-name {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 20px;
+            font-weight: normal;
+            color: #776c6c;
+        }
+
         .sig-line {
             display: inline-block;
-            margin-top: 18px;
+            margin-top: 3px;
             border-top: 1px solid #ddd;
             padding-top: 6px;
             font-weight: 700;
@@ -223,6 +230,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="left-shape"></div>
     <div class="right-shape"></div>
@@ -232,8 +240,7 @@
             <div class="inv-title">INVOICE</div>
         </div>
         <div class="company-block">
-            <img src="{{ public_path('assets/admin/img/logo.png') }}" alt="Tender Moments Logo"
-             style="width:130px;">
+            <img src="{{ public_path('assets/admin/img/logo.png') }}" alt="Tender Moments Logo" style="width:130px;">
             <div style="margin-top:8px;">ABN: 52 114 429 886</div>
             <div style="margin-top:6px;">Contact: {{ $invoice['business_email'] }}</div>
             <div style="margin-top:6px;">Service provided: Sensual Energy Session</div>

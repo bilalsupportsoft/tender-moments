@@ -186,14 +186,23 @@
             color: #444;
         }
 
+
         .signature {
+            margin-top: 50px;
             text-align: right;
             font-size: 13px;
         }
 
+        .signed-name {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 20px;
+            font-weight: normal;
+            color: #776c6c;
+        }
+
         .sig-line {
             display: inline-block;
-            margin-top: 18px;
+            margin-top: 3px;
             border-top: 1px solid #ddd;
             padding-top: 6px;
             font-weight: 700;
