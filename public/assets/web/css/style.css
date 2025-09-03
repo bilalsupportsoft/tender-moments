@@ -30984,6 +30984,18 @@ ul.slot-booking-box li {
     width: 250px!important;
 }
 
+.info-details-bar div {
+    line-height: 32px;
+}
+
+ul#slot-list {
+    text-align: center;
+}
+
+.fi-infodate {
+    width: 340px;
+}
+
 @media only screen and (min-width : 320px) and (max-width : 400px) {
 
 .info-bell-timothy {
@@ -31050,7 +31062,47 @@ height: 150px !important;
 ul.slot-booking-box {
  text-align: center;
 }
+ul.slot-booking-box li {
+ width: 218px;
+}
 
+.ui.calendar .ui.table.day {
+    min-width: 275px!important;
+}
+
+
+.ui.popup {
+ top: 50px !important;
+
+}
+.info-fild-box {
+    min-height: 370px;
+}
+.booking-info {
+border-right: none;
+}
+
+/***Booking-process***/
+
+.booking-avalable-data {
+    padding: 20px 0 0 0;
+}
+
+.padding-action-btn {
+    padding: 14px 10px;
+}
+p#slot-price div {
+    line-height: 32px;
+}
+.booking-title-heading {
+    display: inline-block !important;
+}
+.booking-flow-web {
+  padding: 20px 0 70px 0;
+}
+.filter-box {
+    padding: 20px 0 0 0;
+}
 
 }
 
@@ -31081,6 +31133,80 @@ ul.slot-booking-box {
     background-size: cover;
 }
 
+/***Pupup-css***/
+.signin-height {
+    min-height: 250px!important;
+    background-position: 100% 30%;
+    background-size: 100%;
+}
+.custom-popup-box {
+ width: 90%;
+}
+
+#custom-popup {
+ height: auto!important;
+   top: 40px;
+
+
+}
+
+.bg-ragi-info {
+ min-height: 150px !important;
+height: 150px !important;
+    background-size: cover!important;
+    background-position: unset!important;
+    border-radius: 10px!important;
+}
+
+.bg-ragi-info.signup-height {
+    min-height: 150px !important;
+    height: 150px !important;
+    background-size: cover!important;
+    background-position: unset!important;
+}
+
+.right-info-rights {
+   max-height: 400px;
+    overflow-y: scroll;
+}
+ul.slot-booking-box {
+ text-align: center;
+}
+
+.ui.calendar .ui.table.day {
+    min-width: 275px!important;
+}
+
+.booking-info {
+border-right: none;
+}
+
+
+/***Booking-process***/
+
+.booking-avalable-data {
+    padding: 20px 0 0 0;
+}
+
+.padding-action-btn {
+    padding: 14px 10px;
+}
+p#slot-price div {
+    line-height: 32px;
+}
+
+.booking-title-heading {
+    display: inline-block !important;
+}
+.booking-flow-web {
+  padding: 20px 0 70px 0;
+}
+.filter-box {
+    padding: 20px 0 0 0;
+}
+
+
+
 }
 
 @media only screen and (min-width : 401px) and (max-width : 576px) {
@@ -31102,6 +31228,17 @@ ul.slot-booking-box {
 .banner-right-thumbnail-area {
     background-position: 70% center!important;
     background-size: cover;
+}
+
+.ui.popup {
+ top: 50px !important;
+
+}
+.info-fild-box {
+    min-height: 370px;
+
+  }.booking-info {
+border-right: none;
 }
 
 
@@ -31221,3 +31358,68 @@ ul.slot-booking-box {
 
 
   }
+
+
+@media only screen and (min-width : 577px) and (max-width : 767px) {
+
+
+  /***Pupup-css***/
+.signin-height {
+    min-height: 250px!important;
+    background-position: 100% 30%;
+    background-size: 100%;
+}
+.custom-popup-box {
+ width: 90%;
+}
+
+#custom-popup {
+ height: auto!important;
+   top: 40px;
+
+
+}
+
+.bg-ragi-info {
+ min-height: 150px !important;
+height: 150px !important;
+    background-size: cover!important;
+    background-position: unset!important;
+    border-radius: 10px!important;
+}
+
+.bg-ragi-info.signup-height {
+    min-height: 150px !important;
+    height: 150px !important;
+    background-size: cover!important;
+    background-position: unset!important;
+}
+
+.right-info-rights {
+   max-height: 400px;
+    overflow-y: scroll;
+}
+ul.slot-booking-box {
+ text-align: center;
+}
+.ui.calendar .ui.table.day {
+    min-width: 275px!important;
+}
+.booking-info {
+border-right: none;
+}
+
+/***Booking-process***/
+
+.booking-avalable-data {
+    padding: 20px 0 0 0;
+}
+
+.padding-action-btn {
+    padding: 14px 10px;
+}
+p#slot-price div {
+    line-height: 32px;
+}
+
+}
